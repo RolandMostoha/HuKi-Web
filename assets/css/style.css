@@ -336,7 +336,11 @@ img {
 }
 
 .nav.navbar-nav.navbar-right {
-    margin-right: 0;
+    margin-right: 100px;
+}
+
+.nav-download {
+    margin-left: 100px;
 }
 
 .navbar-brand {
@@ -460,7 +464,7 @@ img {
 }
 
 .slider-icon {
-    margin-bottom: 18px;
+    margin-bottom: 25px;
 }
 
 .slider-img img {
@@ -570,14 +574,7 @@ img {
 .hero-box:hover span.lnr {
     color: #fff;
     background: rgb(46, 125, 50);
-    box-shadow: 0px 20px 50px 0px rgb(46, 125, 50);
-    background: -moz-linear-gradient(45deg, rgb(46, 125, 50) 0%, rgb(46, 125, 50) 100%);
-    background: -webkit-gradient(left bottom, right top, color-stop(0%, rgb(46, 125, 50)), color-stop(100%, rgb(46, 125, 50)));
-    background: -webkit-linear-gradient(45deg, rgb(46, 125, 50) 0%, rgb(46, 125, 50) 100%);
-    background: -o-linear-gradient(45deg, rgb(46, 125, 50) 0%, rgb(46, 125, 50) 100%);
-    background: -ms-linear-gradient(45deg, rgb(46, 125, 50) 0%, rgb(46, 125, 50) 100%);
-    background: linear-gradient(45deg, rgb(46, 125, 50) 0%, rgb(46, 125, 50) 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#58c9f6', endColorstr='#a306f8', GradientType=1 )
+    box-shadow: 0px 20px 50px 0px rgba(46, 125, 50, 0.4);
 }
 
 .hero-box p {
@@ -782,7 +779,7 @@ img {
     text-align: center;
     padding-top: 25px;
     padding-bottom: 20px;
-    box-shadow: 0px 10px 20px 0px rgba(150, 43, 248, 0.2);
+    box-shadow: 0px 10px 20px 0px rgba(150, 43, 248, 0.4);
 }
 
 .testimonial-list {
@@ -1015,13 +1012,7 @@ img {
 *                                   06. Action area css
 * --------------------------------------------------------------------------------------- */
 .action-area {
-    background: rgba(88,201,246,1);
-    background: -moz-linear-gradient(left, rgba(88,201,246,1) 0%, rgba(163,6,248,1) 100%);
-    background: -webkit-gradient(left top, right top, color-stop(0%, rgba(88,201,246,1)), color-stop(100%, rgba(163,6,248,1)));
-    background: -webkit-linear-gradient(left, rgba(88,201,246,1) 0%, rgba(163,6,248,1) 100%);
-    background: -o-linear-gradient(left, rgba(88,201,246,1) 0%, rgba(163,6,248,1) 100%);
-    background: -ms-linear-gradient(left, rgba(88,201,246,1) 0%, rgba(163,6,248,1) 100%);
-    background: linear-gradient(to right, rgba(88,201,246,1) 0%, rgba(163,6,248,1) 100%);
+    background: rgb(46, 125, 50);
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#58c9f6', endColorstr='#a306f8', GradientType=1 );
 }
 
@@ -1156,20 +1147,20 @@ img {
 }
 
 .screen {
-    margin: 0 15px;
+    margin: 0 25px;
     text-align: center;
     margin-bottom: 20px;
     margin-top: 10px;
 }
 
 .screen img {
-    border-radius: 20px;
-    border: 1px solid #eee;
+    border-radius: 30px;
+    border: 1px solid #DEDEDE;
 }
 
 .screen img:hover {
     border: 1px solid transparent;
-    box-shadow: 0px 10px 20px 0px rgba(150, 43, 248, 0.2);
+    box-shadow: 0px 10px 20px 0px rgba(46, 125, 50, 0.4);
 }
 
 
@@ -2013,15 +2004,8 @@ input[type="search"]:focus {
 
  .contact-box span:hover {
     color: #fff;
-    box-shadow: 0px 20px 50px 0px rgba(150, 43, 248, 0.2); 
-    background: rgba(88,201,246,1);
-    background: -moz-linear-gradient(45deg, rgba(88,201,246,1) 0%, rgba(163,6,248,1) 100%);
-    background: -webkit-gradient(left bottom, right top, color-stop(0%, rgba(88,201,246,1)), color-stop(100%, rgba(163,6,248,1)));
-    background: -webkit-linear-gradient(45deg, rgba(88,201,246,1) 0%, rgba(163,6,248,1) 100%);
-    background: -o-linear-gradient(45deg, rgba(88,201,246,1) 0%, rgba(163,6,248,1) 100%);
-    background: -ms-linear-gradient(45deg, rgba(88,201,246,1) 0%, rgba(163,6,248,1) 100%);
-    background: linear-gradient(45deg, rgba(88,201,246,1) 0%, rgba(163,6,248,1) 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#58c9f6', endColorstr='#a306f8', GradientType=1 )
+    box-shadow: 0px 20px 50px 0px rgba(46, 125, 50, 0.2);
+    background: rgb(46, 125, 50);
 }
 
 .contact-form-area {
