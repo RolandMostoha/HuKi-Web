@@ -339,8 +339,10 @@ img {
     margin-right: 100px;
 }
 
-.nav-download {
-    margin-left: 100px;
+@media (min-width: 1200px){
+    .nav-download {
+        margin-left: 130px;
+    }
 }
 
 .navbar-brand {
@@ -367,6 +369,7 @@ img {
 }
 
 .navbar-nav a.btn,
+
 .navbar-nav a.btn:focus {
     color: #000;
     font-size: 14px;
@@ -475,6 +478,7 @@ img {
 .btn-set {    
     margin-left: -10px;
     margin-right: -10px;
+    margin-bottom: 20px;
 }
 
 .btn-set .btn {
