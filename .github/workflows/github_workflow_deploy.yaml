@@ -20,4 +20,4 @@ jobs:
           aws-region: us-east-1
 
       - name: Deploy static site to S3 bucket
-        run: aws s3 sync ./ s3://huki-customresourcestack-12f0c5ticc0l-s3bucketlogs-lqwy3jv5x0lw --delete
+        run: aws s3 sync ./ s3://huki-customresourcestack-12f0c5ticc0l-s3bucketroot-nw0cariy0rdj --delete
