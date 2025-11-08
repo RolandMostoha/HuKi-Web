@@ -64,12 +64,18 @@
      *-------------------------------------------------------------------------*/
       $(window).on('scroll', function () {
           var menu_area = $('.menu-area');
+          var navbar_logo = $('.navbar-logo'); // navbar logo shown only after scroll
           if ($(window).scrollTop() > 50) {
               menu_area.addClass('sticky-menu');
+              navbar_logo.addClass('logo-visible');
           } else {
               menu_area.removeClass('sticky-menu');
+              navbar_logo.removeClass('logo-visible');
           }
       }); // $(window).on('scroll' end
+
+      // Initialize navbar logo/menu state on load (in case page loads scrolled)
+      $(window).trigger('scroll');
 
 
 
@@ -164,109 +170,6 @@
           navigation          : false,
           autoHeight          : true,
       });
-
-       /*-------------------------------------------------------------------------*
-     *                       09. Google Map js                                 *
-     *-------------------------------------------------------------------------*/
-      var myCenter = new google.maps.LatLng( 23.8028085, 90.4070036 );
-      function initialize(){
-      var mapProp = {
-        zoom:14,
-        center:myCenter,
-        scrollwheel: false,
-        mapTpeIdy:google.maps.MapTypeId.ROADMAP
-      };
-          var map=new google.maps.Map(document.getElementById("contactgoogleMap"),mapProp);
-      }
-      google.maps.event.addDomListener(window, 'load', initialize);
-
-
-
-
-    /*-------------------------------------------------------------------------*
-     *                  10. Ajax Contact Form js                               *
-     *-------------------------------------------------------------------------*/
-      // Get the form.
-      var form = $('#ajax-contact');
-
-      // Get the messages div.
-      var formMessages = $('#form-messages');
-
-      // Set up an event listener for the contact form.
-      $(form).on('submit', function(e) {
-          // Stop the browser from submitting the form.
-          e.preventDefault();
-
-          // Serialize the form data.
-          var formData = $(form).serialize();
-
-          // Submit the form using AJAX.
-          $.ajax({
-              type: 'POST',
-              url: $(form).attr('action'),
-              data: formData
-          })
-          .done(function(response) {
-              // Make sure that the formMessages div has the 'success' class.
-              $(formMessages).removeClass('error');
-              $(formMessages).addClass('success');
-
-              // Set the message text.
-              $(formMessages).text(response);
-
-              // Clear the form.
-              $('#name').val('');
-              $('#email').val('');
-              $('#subject').val('');
-              $('#message').val('');
-
-          })
-          .fail(function(data) {
-              // Make sure that the formMessages div has the 'error' class.
-              $(formMessages).removeClass('success');
-              $(formMessages).addClass('error');
-
-              // Set the message text.
-              if (data.responseText !== '') {
-                  $(formMessages).text(data.responseText);
-              } else {
-                  $(formMessages).text('Oops! An error occured and your message could not be sent.');
-              }
-          });
-
-      });
-
-
-
-        /*-------------------------------------------------------------------------*
-         *                   12. MailChimp js                                    *
-         *-------------------------------------------------------------------------*/
-          $('#mc-form').ajaxChimp({
-            language: 'en',
-            callback: mailChimpResponse,
-
-            // ADD YOUR MAILCHIMP URL BELOW HERE!
-            url: 'http://coderspoint.us14.list-manage.com/subscribe/post?u=e5d45c203261b0686dad32537&amp;id=d061f39c51'
-            
-          });
-
-          function mailChimpResponse(resp) {
-            if (resp.result === 'success') {
-              $('.mailchimp-success').html('' + resp.msg).fadeIn(900);
-              $('.mailchimp-error').fadeOut(400);
-
-            } else if(resp.result === 'error') {
-              $('.mailchimp-error').html('' + resp.msg).fadeIn(900);
-            }  
-          }
-
-
-          // Home Page Slider Settings
-          $('#carousel-example-generic').carousel({
-            interval: 6000,
-            cycle: true
-          });
-
 
 
 
