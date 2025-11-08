@@ -2,9 +2,9 @@
 
 HuKi is an Android app for hikers, which helps you plan trips and discover the hiking trails of Hungary.
 
-The app is available in Google Play: [HuKi on Google Play Store](https://play.google.com/store/apps/details?id=hu.mostoha.mobile.android.huki)
+The web-app is available under: [huki.hu](https://huki.hu/)
 
-The Android project: [RolandMostoha/HuKi-Android](https://github.com/RolandMostoha/HuKi-Android)
+The Android repository: [RolandMostoha/HuKi-Android](https://github.com/RolandMostoha/HuKi-Android)
 
 ## Goals
 
@@ -13,3 +13,29 @@ A showcase website is created for:
 - Google Search App Indexing
 - Deeplinking
 - FAQ, About, Privacy Policy etc. 
+
+## Project License
+
+```
+MIT License
+
+Copyright (c) 2020-2025 Roland Mostoha
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+```
