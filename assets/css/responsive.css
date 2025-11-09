@@ -94,7 +94,11 @@
     .navbar-fixed-bottom .navbar-collapse,
     .navbar-fixed-top .navbar-collapse {
         background: #fff;
-        margin-top: 15px;
+        background: var(--primary-color);
+        margin-top: 10px;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        border-radius: 10px;
         box-shadow: 0px 20px 50px 0px rgba(153, 153, 153, 0.1); 
     }
     .navbar {
@@ -108,8 +112,8 @@
         display: block;
     }
     .mainmenu .navbar-nav li a {
-        padding: 11px 15px;
-        color: inherit;
+        padding: 15px 15px;
+        color: #fff;
     }
     .navbar-fixed-bottom .navbar-collapse,
     .navbar-fixed-top .navbar-collapse {
@@ -121,8 +125,13 @@
     /* Slider Css Starts */
     .slider-area {
         background-image: url("../img/bg/huki_landing_v2_mobile.png");
+        padding-top: 40px;
     }
 
+    .stroked {
+        -webkit-text-stroke: 3px #0C1617;
+        paint-order: stroke fill;
+    }
 
     /* Slider Css Starts */
     .intro-text {
