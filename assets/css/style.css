@@ -56,6 +56,10 @@ body {
     width: 100%;
 }
 
+:root {
+    --primary-color-rgb: 19, 99, 19;
+    --primary-color: #125C12;
+}
 
 body {
     color: #777;
@@ -150,9 +154,9 @@ fieldset {
     box-shadow: 0px 20px 50px 0px rgba(153, 153, 153, 0.1); 
 } 
 .btn:hover, input[type="submit"]:hover {
-    color: #125C12;
+    color: var(--primary-color);
     background: #fff;
-    border: 1px solid #125C12;
+    border: 1px solid var(--primary-color);
 }
 
 .btn-white {
@@ -265,25 +269,6 @@ img {
     height: 100px;
 }
 
-:root {
-    --primary-color: 19, 99, 19;
-}
-
-
-
-
-/* Gradient Color Background Css */
-
-.gradient-bg {
-    box-shadow: 0px 10px 15px 0px rgb(var(--primary-color));
-    background: rgb(var(--primary-color));
-    background: -moz-linear-gradient(45deg,  rgb(var(--primary-color)) 0%, rgb(var(--primary-color)) 7%, rgb(var(--primary-color)) 17%, rgb(var(--primary-color)) 42%, rgb(var(--primary-color)) 56%, rgb(var(--primary-color)) 68%, rgb(var(--primary-color)) 83%, rgb(var(--primary-color)) 95%, rgb(var(--primary-color)) 100%);
-    background: -webkit-linear-gradient(45deg,  rgb(var(--primary-color)) 0%,rgb(var(--primary-color)) 7%,rgb(var(--primary-color)) 17%,rgb(var(--primary-color)) 42%,rgb(var(--primary-color)) 56%,rgb(var(--primary-color)) 68%,rgb(var(--primary-color)) 83%,rgb(var(--primary-color)) 95%,rgb(var(--primary-color)) 100%);
-    background: linear-gradient(45deg,  rgb(var(--primary-color)) 0%,rgb(var(--primary-color)) 7%,rgb(var(--primary-color)) 17%,rgb(var(--primary-color)) 42%,rgb(var(--primary-color)) 56%,rgb(var(--primary-color)) 68%,rgb(var(--primary-color)) 83%,rgb(var(--primary-color)) 95%,rgb(var(--primary-color)) 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#818aff', endColorstr='#ff74b6',GradientType=1 );
-}
-
-
 /* flex box css */
 .d-flex {
     display: flex;
@@ -324,7 +309,7 @@ img {
 }
 
 .menu-area.sticky-menu {
-    background: rgb(var(--primary-color));
+    background: rgb(var(--primary-color-rgb));
 }
 
 .sticky-menu {
@@ -367,17 +352,17 @@ img {
     padding: 0;
     font-size: 36px;
     display: flex;
-    color: #125C12;
+    color: var(--primary-color);
     align-items: center;
     text-transform: uppercase;
 }
 
 .navbar-brand span {
-    color: #125C12;
+    color: var(--primary-color);
 }
 
 .navbar-brand:hover {
-    color: #125C12;
+    color: var(--primary-color);
 }
 
 .navbar-nav li a {
@@ -408,7 +393,7 @@ img {
 
 .navbar-nav a.btn:hover {
     color: #fff;
-    background: rgb(var(--primary-color));
+    background: rgb(var(--primary-color-rgb));
 }
 
 
@@ -606,7 +591,7 @@ img {
 .hero-box:hover i.fa,
 .hero-box:hover span.lnr {
     color: #fff;
-    background: rgb(var(--primary-color));
+    background: rgb(var(--primary-color-rgb));
     box-shadow: 0px 20px 50px 0px rgba(46, 125, 50, 0.4);
 }
 
@@ -792,7 +777,7 @@ img {
 *                                   06. Action area css
 * --------------------------------------------------------------------------------------- */
 .action-area {
-    background: rgb(var(--primary-color));
+    background: rgb(var(--primary-color-rgb));
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#58c9f6', endColorstr='#a306f8', GradientType=1 );
 }
 
@@ -862,10 +847,11 @@ img {
 
 .screen {
     text-align: center;
-    margin-left: 20px;
-    margin-right: 20px;
+    margin-left: auto;
+    margin-right: auto;
     margin-bottom: 20px;
     margin-top: 10px;
+    max-width: 250px;
 }
 
 .screen img {
@@ -990,7 +976,7 @@ footer a:hover {
  .contact-box span:hover {
     color: #fff;
     box-shadow: 0px 20px 50px 0px rgba(46, 125, 50, 0.2);
-    background: rgb(var(--primary-color));
+    background: rgb(var(--primary-color-rgb));
 }
 
 .contact-form-area {
@@ -1081,7 +1067,7 @@ polyline {
     right: 0;
     bottom: 0;
     /* Use the same gradient as the original sticky-menu */
-    background: rgb(var(--primary-color));
+    background: rgb(var(--primary-color-rgb));
     opacity: 0;
     transition: opacity 0.2s ease-in-out;
     pointer-events: none; /* don’t block clicks */

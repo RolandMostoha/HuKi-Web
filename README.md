@@ -14,6 +14,11 @@ A showcase website is created for:
 - Deeplinking
 - FAQ, About, Privacy Policy etc. 
 
+## Release steps
+
+1. Push to main (it will upload the web-app to AWS S3 Bucket)
+2. Go to AWS Console - CloudFront - Invalidations with all path ``/*``
+
 ## Project License
 
 ```
