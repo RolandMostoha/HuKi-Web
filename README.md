@@ -16,8 +16,12 @@ A showcase website is created for:
 
 ## Release steps
 
-1. Push to main (it will upload the web-app to AWS S3 Bucket)
-2. Go to AWS Console - CloudFront - Invalidations with all path ``/*``
+1. Update `index.html` CSS versions, like `*.css?v=v1.1` (Cache Busting)
+2. Update `sitemap.xml`-`lastmod`
+3. Commit
+4. Create annotated tag e.g. `v1.1`
+5. Push to main (it uploads the web-app to AWS S3 Bucket)
+6. Go to AWS Console - CloudFront - Invalidations with all path ``/*``
 
 ## Project License
 
