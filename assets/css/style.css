@@ -452,7 +452,7 @@ img {
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center bottom;
-    background-image: url("../img/bg/huki_landing_v2.png");
+    background-image: url("../img/bg/huki_landing_v2.webp");
 }
 
 .slider-area .carousel,
@@ -478,7 +478,7 @@ img {
 }
 
 .slider-logo {
-    height: 125px;
+    height: 100px;
     width: auto;
     margin-bottom: 23px;
     image-rendering: crisp-edges;

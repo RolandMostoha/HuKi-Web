@@ -13,7 +13,7 @@ async function loadEnglishSite() {
 
         // 1. Adjust all relative asset paths (href="assets/..." or src="assets/...")
         // by prepending "../" to them.
-        html = html.replace(/(href|src)="(assets\/)/g, '$1="../$2');
+        html = html.replace(/(href|src|srcset)="(assets\/)/g, '$1="../$2');
 
         // 2. Adjust the language switcher links for the English page.
         html = html.replace(/<li class="lang-switcher"><a href="en\/">🇬🇧 EN<\/a><\/li>/, '<li class="lang-switcher"><a href="../">🇭🇺 HU</a></li>');
@@ -21,11 +21,11 @@ async function loadEnglishSite() {
         // 3. Update the canonical URL for the English page.
         html = html.replace(/<link rel="canonical" href="https:\/\/huki.hu" \/>/, '<link rel="canonical" href="https://huki.hu/en/" />');
 
-        // 3. Replace the entire document with the modified HTML.
+        // 4. Replace the entire document with the modified HTML.
         document.open();
         document.write(html);
 
-        // 4. Add a class to the body to make it visible.
+        // 5. Add a class to the body to make it visible.
         document.body.classList.add('content-loaded');
         document.close();
     } catch (error) {
