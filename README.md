@@ -28,7 +28,7 @@ A showcase website is created for:
 ```
 MIT License
 
-Copyright (c) 2020-2025 Roland Mostoha
+Copyright (c) 2020-2026 Roland Mostoha
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
