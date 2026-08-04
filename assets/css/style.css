@@ -285,6 +285,72 @@ img {
     align-items: center;
 }
 
+/* ground
+   ----------------------------------------------------------------------------
+   Reusable: put .ground on any section to give it a flat bottom band with a
+   raised, localised mound — a "hill" for a mockup to stand on. Built from two
+   plain shapes in the same colour, so their union needs no clipping maths:
+
+     ::before  the flat band, full width, --ground-base tall
+     ::after   the mound, centred at --ground-x, cresting --ground-rise above
+               the band.
+
+   The mound is a bezier hill drawn as an SVG mask rather than an ellipse. An
+   ellipse's flank always meets the band at an angle — that corner can be made
+   shallower but never removed. This path leaves the baseline horizontally at
+   both ends, so the join is tangent-continuous and reads as smooth. It's a
+   mask, not a background image, so --ground-color still drives the fill.
+   preserveAspectRatio='none' keeps horizontal tangents horizontal under
+   non-uniform scaling, so width and rise stay independent.
+
+   Both sit at z-index 1. Foreground content (the mockup) goes at z-index 2 so
+   it stands in front of the mound; anything that must clear it goes at 3+.
+   --ground-color must match the background of whatever follows. */
+.ground {
+    position: relative;
+    overflow: hidden;
+    --ground-color: #fff;
+    /* height of the flat band at the section's bottom edge */
+    --ground-base: 34px;
+    /* how far the mound crests above that band */
+    --ground-rise: 90px;
+    /* mound footprint — keep it near the mockup's width, not the page's */
+    --ground-width: 1200px;
+    /* horizontal centre of the mound, e.g. under the mockup */
+    --ground-x: 50%;
+    /* hill profile: flat at both ends and at the crest. Swap for a
+       different silhouette — any path that ends horizontally joins
+       smoothly. */
+    --ground-shape: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' preserveAspectRatio='none'%3E%3Cpath d='M0,100 C22,100 34,0 50,0 C66,0 78,100 100,100 Z' fill='%23000'/%3E%3C/svg%3E");
+}
+
+.ground::before,
+.ground::after {
+    content: "";
+    position: absolute;
+    z-index: 1;
+    pointer-events: none;
+    background: var(--ground-color);
+}
+
+.ground::before {
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: var(--ground-base);
+}
+
+/* Overlaps the band by 1px so no hairline shows between the two shapes. */
+.ground::after {
+    left: var(--ground-x);
+    transform: translateX(-50%);
+    width: var(--ground-width);
+    height: calc(var(--ground-rise) + 1px);
+    bottom: calc(var(--ground-base) - 1px);
+    -webkit-mask: var(--ground-shape) no-repeat center / 100% 100%;
+    mask: var(--ground-shape) no-repeat center / 100% 100%;
+}
+
 
 
 @media (max-width: 991px) {
@@ -474,9 +540,35 @@ img {
     background-image: url("../img/bg/huki_landing_v4.webp");
 }
 
+/* No z-index: a stacking context here would trap the phone below the ground.
+   Layering is set per child instead — ground 1, phone 2, copy 3. */
 .slider-area .container {
     position: relative;
-    z-index: 1;
+}
+
+/* Centre the mound under the phone. The phone is right-aligned in the
+   container, so its centre sits half a container-width right of the page
+   centre, less half the phone's width — hence one offset per container size. */
+@media (min-width: 1200px) {
+    .slider-area {
+        --ground-x: calc(50% + 385px);
+    }
+}
+
+/* Below 1200px the phone sits close to the viewport edge, so the mound gets a
+   smaller footprint to stay in proportion; its outer flank runs off the page. */
+@media (min-width: 992px) and (max-width: 1199px) {
+    .slider-area {
+        --ground-x: calc(50% + 290px);
+        --ground-width: 860px;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+    .slider-area {
+        --ground-x: calc(50% + 185px);
+        --ground-width: 740px;
+    }
 }
 
 .slider-area .carousel,
@@ -516,13 +608,23 @@ img {
     filter: blur(34px);
 }
 
+/* Left static on purpose — the phone gets its own z-index below, and a
+   stacking context here would put it out of reach of the ground. */
 .slider-img {
     margin-top: 100px;
     text-align: right;
 }
 
+/* In front of the ground, so the phone stands on the mound rather than
+   being cropped by it. */
+.slider-img img {
+    position: relative;
+    z-index: 2;
+}
+
 .slider-text {
     position: relative;
+    z-index: 3;
 }
 
 .slider-text > * {
@@ -602,16 +704,9 @@ img {
         text-align: center;
         margin-top: 120px;
     }
-    /* Mobile keeps the dark background image, so no light patch is needed */
-    .slider-copy::before {
-        display: none;
-    }
     .slider-logo {
         justify-content: center;
         gap: 16px;
-    }
-    .slider-logo-text {
-        filter: none;
     }
     .slider-logo-icon {
         height: 80px;
@@ -626,6 +721,13 @@ img {
     .slider-img {
         margin-top: 0px;
         text-align: center;
+    }
+    /* The phone is centred here, so --ground-x keeps its 50% default; the
+       mound just scales down to the phone's footprint. */
+    .slider-area {
+        --ground-base: 50px;
+        --ground-rise: 42px;
+        --ground-width: 800px;
     }
 }
 
