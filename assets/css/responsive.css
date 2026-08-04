@@ -144,6 +144,17 @@
         margin-bottom: 20px;
     }
 
+    /* Long paragraph in a narrow column — a step down from the desktop 16px
+       keeps it from dominating the hero */
+    .slider-text p {
+        font-size: 15px;
+    }
+
+    /* Overrides the badge's width="240" attribute */
+    .btn-set img {
+        width: 180px;
+    }
+
     /* Slider Css Starts */
     .intro-text {
         padding: 0 15px;

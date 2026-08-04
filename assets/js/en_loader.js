@@ -16,7 +16,9 @@ async function loadEnglishSite() {
         html = html.replace(/(href|src|srcset)="(assets\/)/g, '$1="../$2');
 
         // 2. Adjust the language switcher links for the English page.
-        html = html.replace(/<li class="lang-switcher"><a href="en\/">🇬🇧 EN<\/a><\/li>/, '<li class="lang-switcher"><a href="../">🇭🇺 HU</a></li>');
+        // Matched loosely (whole <li>) so markup tweaks inside the switcher —
+        // or a stale cached copy of this script — can't silently break the swap.
+        html = html.replace(/<li class="lang-switcher">[\s\S]*?<\/li>/, '<li class="lang-switcher"><a href="../"><span class="lang-flag">🇭🇺</span> HU</a></li>');
 
         // 3. Update the canonical URL for the English page.
         html = html.replace(/<link rel="canonical" href="https:\/\/huki.hu" \/>/, '<link rel="canonical" href="https://huki.hu/en/" />');

@@ -56,6 +56,7 @@ body {
     width: 100%;
 }
 
+
 :root {
     --primary-color-rgb: 19, 99, 19;
     --primary-color: #125C12;
@@ -308,7 +309,18 @@ img {
    --ground-color must match the background of whatever follows. */
 .ground {
     position: relative;
+    /* Clipped, so the mound's horizontal excess can't give the page sideways
+       overflow. (`overflow: clip` + `overflow-clip-margin` would let a mockup's
+       shadow bleed past the edge, but the margin applies on all four sides and
+       counts as scroll overflow, which makes mobile browsers grow the layout
+       viewport and push the fixed navbar off-screen — don't reintroduce it.
+       --ground-pad below is how a shadow gets its room instead.) */
     overflow: hidden;
+    /* Extra height below the ground line, inside the section: room for a
+       mockup's contact shadow to fade out before the clip. The section must
+       carry a matching padding-bottom; the band simply grows to cover it, so
+       nothing looks different. */
+    --ground-pad: 0px;
     --ground-color: #fff;
     /* height of the flat band at the section's bottom edge */
     --ground-base: 34px;
@@ -333,11 +345,13 @@ img {
     background: var(--ground-color);
 }
 
+/* Grows by --ground-pad so the band still reaches the section's bottom edge;
+   the ground line itself stays put. */
 .ground::before {
     left: 0;
     right: 0;
     bottom: 0;
-    height: var(--ground-base);
+    height: calc(var(--ground-base) + var(--ground-pad));
 }
 
 /* Overlaps the band by 1px so no hairline shows between the two shapes. */
@@ -346,7 +360,7 @@ img {
     transform: translateX(-50%);
     width: var(--ground-width);
     height: calc(var(--ground-rise) + 1px);
-    bottom: calc(var(--ground-base) - 1px);
+    bottom: calc(var(--ground-base) + var(--ground-pad) - 1px);
     -webkit-mask: var(--ground-shape) no-repeat center / 100% 100%;
     mask: var(--ground-shape) no-repeat center / 100% 100%;
 }
@@ -414,13 +428,43 @@ img {
     visibility: visible;
 }
 
+/* Still used by the privacy-policy pages, which keep the right-aligned menu */
 .nav.navbar-nav.navbar-right {
     margin-right: 100px;
 }
 
+/* Menu links are horizontally centered in the navbar */
+@media (min-width: 768px) {
+    .nav.navbar-nav.navbar-center {
+        float: none;
+        margin-right: 0;
+        text-align: center;
+    }
+
+    .nav.navbar-nav.navbar-center > li {
+        float: none;
+        display: inline-block;
+    }
+}
+
+/* Only wide enough here for the logo to leave the flow — that centres the links
+   on the page rather than on the space beside the logo. Below 1200px the logo
+   stays in flow: the links then centre in what's left of the bar, which is
+   slightly off-page-centre but never runs underneath the sticky logo. */
 @media (min-width: 1200px){
-    .nav-download {
-        margin-left: 100px;
+    .navbar-nobg .navbar-header {
+        position: absolute;
+        left: 0;
+        top: 0;
+        z-index: 2;
+    }
+
+    .navbar-nobg .navbar-collapse {
+        width: 100%;
+    }
+
+    .navbar-nav > li.lang-switcher {
+        margin-left: 30px;
     }
 }
 
@@ -487,12 +531,32 @@ img {
 .mainmenu .navbar-nav li.active a {}
 
 /* Mobile Nav css */
+/* Dark over the light landing image, white once the sticky green bar is behind
+   it — same rule the nav links follow. */
 .navbar-toggle .icon-bar {
+    background: var(--menu-text-color);
+}
+
+/* …and wherever the green bar is showing: after scroll, or always on the
+   privacy pages, which force the overlay on. */
+.sticky-menu .navbar-toggle .icon-bar,
+.privacy-policy-page .navbar-toggle .icon-bar {
     background: #fff;
 }
 
 
 /*Dropdown Css*/
+.navbar-nav > li.lang-switcher > a {
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.lang-flag {
+    font-size: 24px;
+    line-height: 1;
+    vertical-align: -2px;
+}
+
 .navbar-nav > li > a {
     border-radius: 30px;
     transition: background-color .2s ease, color .2s ease;
@@ -534,6 +598,10 @@ img {
        background art gets cropped, capped at 900px. Content can always push
        it taller — this is a floor, never a clamp. */
     min-height: min(40vw, 900px);
+    /* Room inside the section for the phone's contact shadow to fade out; the
+       ground band grows over it, so the hero looks exactly the same. */
+    --ground-pad: 70px;
+    padding-bottom: var(--ground-pad);
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center bottom;
@@ -653,9 +721,18 @@ img {
             drop-shadow(0 0 16px rgba(255, 255, 255, 0.45));
 }
 
+/* Contact shadow: a drop-shadow (not box-shadow) so it follows the rounded
+   phone silhouette, weighted downwards so the phone reads as standing on the
+   white ground rather than floating. Two passes — a tight dark one at the
+   contact edge, a wide soft one for the ambient falloff. */
 .slider-img img {
     border-radius: 50px;
-    box-shadow: 0px 20px 50px 0px rgba(153, 153, 153, 0.1);
+    /* Standing clear of the section's bottom edge; the shadow's tail simply
+       runs on past it — the section is unclipped and the page below is the
+       same white, so the join is invisible. */
+    bottom: 15px;
+    filter: drop-shadow(0 6px 8px rgba(12, 30, 16, 0.5))
+            drop-shadow(0 22px 30px rgba(12, 30, 16, 0.38));
 }
 
 .btn-set {    

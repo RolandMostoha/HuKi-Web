@@ -14,6 +14,11 @@ A showcase website is created for:
 - Deeplinking
 - FAQ, About, Privacy Policy etc. 
 
+## Tech stack & architecture & coding constraints
+
+Refer to [AGENTS.md](AGENTS.md). It's the best place for humans too.
+
+
 ## Release steps
 
 1. Update `index.html` CSS versions, like `*.css?v=v1.1` (Cache Busting)

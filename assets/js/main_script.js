@@ -62,20 +62,31 @@
     /*-------------------------------------------------------------------------*
      *             02. change Menu background on scroll js                     *
      *-------------------------------------------------------------------------*/
-      $(window).on('scroll', function () {
-          var menu_area = $('.menu-area');
-          var navbar_logo = $('.navbar-logo'); // navbar logo shown only after scroll
-          if ($(window).scrollTop() > 50) {
-              menu_area.addClass('sticky-menu');
-              navbar_logo.addClass('logo-visible');
-          } else {
-              menu_area.removeClass('sticky-menu');
-              navbar_logo.removeClass('logo-visible');
-          }
-      }); // $(window).on('scroll' end
+      // Passive native listeners, coalesced into one rAF: jQuery's handler is
+      // non-passive, which mobile browsers may defer until a scroll gesture
+      // ends — that left the bar unstyled during the scroll itself. touchmove
+      // covers browsers that hold back scroll events mid-gesture.
+      var menu_area = $('.menu-area');
+      var navbar_logo = $('.navbar-logo'); // logo shown only after scroll
+      var was_scrolled = null;
+
+      function update_sticky_menu() {
+          var scrolled = (window.pageYOffset || document.documentElement.scrollTop) > 50;
+          if (scrolled === was_scrolled) return; // only touch the DOM on a change
+          was_scrolled = scrolled;
+          menu_area.toggleClass('sticky-menu', scrolled);
+          navbar_logo.toggleClass('logo-visible', scrolled);
+      }
+
+      // Applied straight from the handler rather than via requestAnimationFrame:
+      // rAF is throttled when the page isn't actively rendering, which left the
+      // bar unstyled until some later scroll happened to land in a live frame.
+      window.addEventListener('scroll', update_sticky_menu, { passive: true });
+      window.addEventListener('touchmove', update_sticky_menu, { passive: true });
+      window.addEventListener('resize', update_sticky_menu, { passive: true });
 
       // Initialize navbar logo/menu state on load (in case page loads scrolled)
-      $(window).trigger('scroll');
+      update_sticky_menu();
 
 
 
