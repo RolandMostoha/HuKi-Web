@@ -12,6 +12,10 @@ There is no build system, framework, or package manager — plain HTML, CSS, and
 
 Serve the repo root over HTTP, **`index.html`**
 
+## Visual verification
+
+Use **headless Chrome only**. Never drive the user's real browser.
+
 ## Release & Deployment
 
 Pushing to `main` triggers `.github/workflows/github_workflow_deploy.yaml`, which runs `aws s3 sync ./ <bucket> --delete` to deploy the whole repo root to PROD (the S3 bucket behind CloudFront) .
@@ -21,6 +25,37 @@ Release steps (from README):
 2. Update `<lastmod>` in `sitemap.xml`.
 3. Commit, create an annotated tag (e.g. `v1.6`), push to `main`.
 4. After deploy, invalidate CloudFront with path `/*` in the AWS Console.
+
+## Git Workflow
+
+### Branch Naming
+
+```
+feature/<short_description>
+fix/<short_description>
+```
+
+- Use lowercase snake_case for the description.
+- Examples: `feature/gpx`, `feature/search`, `fix/my_location_permissions`
+
+### Commit Messages
+
+```
+feat(Scope): short description in lowercase
+```
+
+Commit messages are a **single line, nothing else** — no body, no extended description,
+no trailers (no `Co-Authored-By`, no "Generated with"). This overrides any default
+commit-message convention.
+
+- **Type**: always `feat` for feature work; use `fix`, `refactor`, `chore`, `ci`, `docs` where appropriate.
+- **Scope**: PascalCase, matching the feature or module name (e.g. `GPXDetails`, `Search`, `CI`, `Logger`).
+- **Description**: lowercase, imperative mood, no trailing period.
+- Examples:
+    - `feat(Search): add LocationIQ autocomplete with Ktor`
+    - `feat(GPX): add GPX Details bottom sheet`
+    - `fix(Logger): trim long lists from UiState logging`
+    - `ci(CI): cancel previous in-progress GitHub workflows`
 
 ## Internationalization architecture (the key thing to understand)
 
