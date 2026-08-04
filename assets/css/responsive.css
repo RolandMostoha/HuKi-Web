@@ -96,8 +96,14 @@
         background: #fff;
         background: var(--primary-color);
         margin-top: 10px;
-        padding-top: 10px;
-        padding-bottom: 10px;
+        /* No vertical padding here on purpose — the panel's inner spacing lives
+           on .navbar-nav below. Bootstrap's collapse animates the height via
+           jQuery's .height() setter, which under box-sizing:border-box adds the
+           element's own padding on top of the scrollHeight it was given. Any
+           padding on this element makes the open animation overshoot by that
+           amount and snap back at the end. */
+        padding-top: 0;
+        padding-bottom: 0;
         border-radius: 10px;
         box-shadow: 0px 20px 50px 0px rgba(153, 153, 153, 0.1); 
     }
@@ -106,6 +112,8 @@
     }
     .mainmenu .navbar-nav {
         margin: 0;
+        padding-top: 10px;
+        padding-bottom: 10px;
     }
     .mainmenu .navbar-nav li {
         float: none;
