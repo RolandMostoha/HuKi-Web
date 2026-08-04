@@ -62,7 +62,7 @@
     /*-------------------------------------------------------------------------*
      *             02. change Menu background on scroll js                     *
      *-------------------------------------------------------------------------*/
-      // Passive native listeners, coalesced into one rAF: jQuery's handler is
+      // Passive native listeners instead of jQuery's: jQuery's handler is
       // non-passive, which mobile browsers may defer until a scroll gesture
       // ends — that left the bar unstyled during the scroll itself. touchmove
       // covers browsers that hold back scroll events mid-gesture.

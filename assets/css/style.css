@@ -492,8 +492,10 @@ img {
     letter-spacing: 1px;
 }
 
-/* Sticky bar has a solid green background, so links flip back to white */
-.sticky-menu .navbar-nav li a {
+/* White wherever the green bar is behind them: after scroll, or always on the
+   privacy pages, which force the overlay on. */
+.sticky-menu .navbar-nav li a,
+.privacy-policy-page .navbar-nav li a {
     color: #fff;
 }
 
@@ -727,9 +729,9 @@ img {
    contact edge, a wide soft one for the ambient falloff. */
 .slider-img img {
     border-radius: 50px;
-    /* Standing clear of the section's bottom edge; the shadow's tail simply
-       runs on past it — the section is unclipped and the page below is the
-       same white, so the join is invisible. */
+    /* Standing clear of the section's bottom edge (relies on the position:
+       relative set above), leaving the shadow room to fade out inside the
+       section's --ground-pad before .ground's overflow:hidden clips it. */
     bottom: 15px;
     filter: drop-shadow(0 6px 8px rgba(12, 30, 16, 0.5))
             drop-shadow(0 22px 30px rgba(12, 30, 16, 0.38));
