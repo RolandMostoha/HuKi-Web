@@ -158,9 +158,22 @@
         font-size: 15px;
     }
 
-    /* Overrides the badge's width="240" attribute */
-    .btn-set img {
-        width: 180px;
+    /* The badges sit side by side here, so they are matched on height instead
+       of width. Splitting the row by --g-mratio (see style.css) gives each one
+       the width its artwork needs at a shared height, so they stay on one row
+       down to the narrowest phones; the caps stop them growing past the
+       desktop size once there is room to spare. */
+    .store-badge:has(.store-badge-google) {
+        width: min(var(--g-max-width), (100% - 24px) * var(--g-mratio));
+    }
+    .store-badge:has(.store-badge-apple) {
+        width: min(var(--a-max-width), (100% - 24px) * (1 - var(--g-mratio)));
+    }
+
+    /* The phone sits directly below the badges here rather than beside them,
+       so the row needs more clearance than the desktop 20px. */
+    .store-badges {
+        margin-bottom: 50px;
     }
 
     /* Slider Css Starts */

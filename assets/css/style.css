@@ -655,6 +655,17 @@ img {
     margin-bottom: 30px;
 }
 
+/* Tablet: the copy column narrows to ~455px while the phone keeps the other
+   half, which is too tight for the title at 47px — the longer English string
+   ("Hungarian Hiking Map") needs ~39px to stay on one line, so both languages
+   step down together. Below 992px the column goes full width and 47px fits
+   again. */
+@media (min-width: 992px) and (max-width: 1199px) {
+    .slider-text h1 {
+        font-size: 45px;
+    }
+}
+
 .slider-text p {
     margin-bottom: 40px;
     font-size: 16px;
@@ -743,6 +754,73 @@ img {
     margin-bottom: 20px;
 }
 
+/* Store badges. Sized so the two line up as artwork rather than as boxes: the
+   App Store SVG fills its box, but the Google Play PNG sits inside a 646x250
+   canvas with transparent padding that differs per locale. Each link is sized
+   to the visible badge, and the Google image is blown up past its link by
+   --g-scale and pulled back by --g-pad-* (percentages of the link, so they
+   hold at any size) until only the artwork occupies the link's box.
+   Sizing lives on the links, not the images: a percentage width on the image
+   would resolve against its own shrink-to-fit link and go circular.
+     --g-mratio  the Google badge's share of the row when the two are matched
+                 on height instead of width — see responsive.css */
+.store-badges {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+    --badge-width: 240px;
+    /* hu: the artwork is 646x192, padded top and bottom only */
+    --g-scale: 1;
+    --g-pad-x: 0%;
+    --g-pad-y: 4.489%;
+    --g-mratio: 0.4718;
+    --g-max-width: 239px;
+    --a-max-width: 268px;
+}
+
+html[lang="en"] .store-badges {
+    /* en: the artwork is 564x168, padded evenly on all four sides */
+    --g-scale: 1.1454;
+    --g-pad-x: 7.27%;
+    --g-pad-y: 7.27%;
+    --g-mratio: 0.5288;
+    --g-max-width: 238px;
+    --a-max-width: 212px;
+}
+
+.store-badge img {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+.store-badge .store-badge-google {
+    width: calc(100% * var(--g-scale));
+    /* The scaled-up image is meant to overflow its link — the global
+       img { max-width: 100% } would otherwise clamp it back to the link. */
+    max-width: none;
+    margin: calc(-1 * var(--g-pad-y)) calc(-1 * var(--g-pad-x));
+}
+
+/* Stacked (768-1199px, and phones too narrow for a row): match widths so the
+   badges' left and right edges line up. */
+.store-badge {
+    display: block;
+    width: var(--badge-width);
+}
+
+/* From 1200px up the copy column is wide enough to hold both badges on one
+   row, so they match on height instead — same sizes the mobile row uses. */
+@media (min-width: 1200px) {
+    .store-badge:has(.store-badge-google) {
+        width: var(--g-max-width);
+    }
+    .store-badge:has(.store-badge-apple) {
+        width: var(--a-max-width);
+    }
+}
+
 .btn-set .btn {
     height: 80px;
     float: left;
@@ -796,6 +874,9 @@ img {
     .btn-set .btn {
         display: inline-block;
         float: none;
+    }
+    .store-badges {
+        justify-content: center;
     }
     .slider-img {
         margin-top: 0px;
