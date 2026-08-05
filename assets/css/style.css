@@ -332,8 +332,11 @@ img {
     --ground-x: 50%;
     /* hill profile: flat at both ends and at the crest. Swap for a
        different silhouette — any path that ends horizontally joins
-       smoothly. */
-    --ground-shape: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' preserveAspectRatio='none'%3E%3Cpath d='M0,100 C22,100 34,0 50,0 C66,0 78,100 100,100 Z' fill='%23000'/%3E%3C/svg%3E");
+       smoothly. Kept as a file rather than a data: URI because PROD sends
+       `Content-Security-Policy: img-src 'self' …`, which a mask image is
+       fetched under: a data: URI is refused there, and a mask whose image
+       fails to load hides the element outright. */
+    --ground-shape: url("../img/ground_mound.svg");
 }
 
 .ground::before,
