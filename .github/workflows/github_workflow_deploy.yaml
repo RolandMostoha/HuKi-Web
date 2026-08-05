@@ -22,11 +22,7 @@ jobs:
       - name: Deploy static site to S3 bucket
         run: aws s3 sync ./ s3://huki-customresourcestack-12f0c5ticc0l-s3bucketroot-nw0cariy0rdj --delete
 
-      # Both files must be served as application/json or the OS link verifiers reject them.
-      # apple-app-site-association has no extension, so S3 guesses binary/octet-stream;
-      # assetlinks.json is re-uploaded here too so the type is pinned explicitly rather
-      # than left to S3's guess. This replaces setting the type by hand after each deploy.
-      - name: Fix content type of app link association files
+      - name: Deploy deeplink configs to S3 bucket
         run: |
           for file in apple-app-site-association assetlinks.json; do
             aws s3 cp ".well-known/$file" \
