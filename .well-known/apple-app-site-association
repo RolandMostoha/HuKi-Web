@@ -1,0 +1,32 @@
+{
+  "applinks": {
+    "details": [
+      {
+        "appIDs": [
+          "8PF8GK99M6.hu.mostoha.mobile.ios.huki"
+        ],
+        "components": [
+          {
+            "/": "/",
+            "exclude": true,
+            "comment": "Landing page stays in the browser"
+          },
+          {
+            "/": "/en/*",
+            "exclude": true,
+            "comment": "English landing page stays in the browser"
+          },
+          {
+            "/": "/privacy-policy/*",
+            "exclude": true,
+            "comment": "Privacy policy stays in the browser"
+          },
+          {
+            "/": "/*",
+            "comment": "Everything else opens in the HuKi app"
+          }
+        ]
+      }
+    ]
+  }
+}

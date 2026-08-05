@@ -18,7 +18,7 @@ Use **headless Chrome only**. Never drive the user's real browser.
 
 ## Release & Deployment
 
-Pushing to `main` triggers `.github/workflows/github_workflow_deploy.yaml`, which runs `aws s3 sync ./ <bucket> --delete` to deploy the whole repo root to PROD (the S3 bucket behind CloudFront) .
+Pushing to `main` triggers `.github/workflows/github_workflow_deploy.yaml`, which runs `aws s3 sync ./ <bucket> --delete` to deploy the whole repo root to PROD (the S3 bucket behind CloudFront). The workflow then re-uploads the two app link association files in `.well-known/` as `application/json`.
 
 Release steps (from README):
 1. Bump the versions in **every** HTML file, e.g. `style.css?v=v1.6`
