@@ -610,7 +610,7 @@ img {
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center bottom;
-    background-image: url("../img/bg/huki_landing_v4.webp");
+    background-image: url("../img/bg/huki_landing_v5.webp");
 }
 
 /* No z-index: a stacking context here would trap the phone below the ground.
