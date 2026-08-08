@@ -114,6 +114,32 @@
     ]
     </script>
 
+    <!-- Language preference saved in storage -->
+    <script>
+        (function () {
+            // Only an explicit switch (?lang= from the switcher) records a preference.
+            var params = new URLSearchParams(location.search);
+            var choice = params.get('lang');
+            if (choice === 'hu' || choice === 'en') {
+                // Storage may throw (Safari with site data blocked); the URL is tidied either way.
+                try { localStorage.setItem('lang', choice); } catch (e) {}
+                params.delete('lang');
+                var query = params.toString();
+                history.replaceState(null, '', location.pathname + (query ? '?' + query : '') + location.hash);
+            }
+            // Redirect at most once per tab, otherwise Back from /en/ is bounced straight back here.
+            // location.search is carried over so ad/campaign params survive the hop.
+            try {
+                if (localStorage.getItem('lang') === 'en' && !sessionStorage.getItem('langRedirected')) {
+                    sessionStorage.setItem('langRedirected', '1');
+                    location.replace('en/' + location.search + location.hash);
+                }
+            } catch (e) {
+                // Storage blocked — stay on the Hungarian page.
+            }
+        })();
+    </script>
+
     <!-- CSS -->
     <link href="assets/css/plugin.css?v=v1.8" rel="stylesheet">
     <link href="assets/css/style.css?v=v1.8" rel="stylesheet">
@@ -138,7 +164,7 @@
                         <div class="navbar navbar-nobg">
                             <div class="navbar-header">
                                 <a class="navbar-brand" href="index.html">
-                                    <img class="navbar-logo" src="assets/img/huki_logo_text_v2.svg" width="100px" data-i18n-alt="navbar_logo_alt" alt="HuKi Home">
+                                    <img class="navbar-logo" src="assets/img/huki_logo_text_v2.svg" width="100px" alt="HuKi Home">
                                 </a>
                                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                                     <span class="sr-only">Toggle navigation</span>
@@ -151,11 +177,11 @@
                             <div class="navbar-collapse collapse">
                                 <nav>
                                     <ul class="nav navbar-nav navbar-center">
-                                        <li><a class="smooth_scroll" href="#slider" data-i18n="navbar_title_home">FŐOLDAL</a></li>
-                                        <li><a class="smooth_scroll" href="#features" data-i18n="navbar_title_features">FUNKCIÓK</a></li>
-                                        <li><a class="smooth_scroll" href="#faq" data-i18n="navbar_title_faq">GYIK</a></li>
-                                        <li><a class="smooth_scroll" href="#contact" data-i18n="navbar_title_contact">KAPCSOLAT</a></li>
-                                        <li class="lang-switcher"><a href="en/"><span class="lang-flag">🇬🇧</span> EN</a></li>
+                                        <li><a class="smooth_scroll" href="#slider">FŐOLDAL</a></li>
+                                        <li><a class="smooth_scroll" href="#features">FUNKCIÓK</a></li>
+                                        <li><a class="smooth_scroll" href="#faq">GYIK</a></li>
+                                        <li><a class="smooth_scroll" href="#contact">KAPCSOLAT</a></li>
+                                        <li class="lang-switcher"><a href="en/?lang=en"><span class="lang-flag">🇬🇧</span> EN</a></li>
                                     </ul>
                                 </nav>
                             </div>
@@ -184,16 +210,16 @@
                                     <img class="slider-logo-icon" src="assets/img/huki_logo_icon_v3.webp" alt="">
                                     <img class="slider-logo-text" src="assets/img/huki_logo_text_v2_green.svg" alt="HuKi">
                                 </div>
-                                <h1 class="stroked" data-i18n="slider_title">Magyar Túratérkép</h1>
-                                <p class="stroked" data-i18n="slider_message">HuKi egy túraapp túrázóknak és természetjáróknak, amely a magyarországi túraútvonalakra és a klasszikus turistajelzésekre épül. Célja, hogy népszerűsítse Magyarország természeti szépségeinek felfedezését, miközben hasznos társ legyen a kirándulásaink során. A HuKi ingyenes, reklámmentes és nyílt forráskódú szoftver.</p>
+                                <h1 class="stroked">Magyar Túratérkép</h1>
+                                <p class="stroked">HuKi egy túrázóknak és természetjáróknak készült mobil app, amely a magyarországi túraútvonalakra és a klasszikus turistajelzésekre épül. Célja, hogy népszerűsítse Magyarország természeti szépségeinek felfedezését, miközben hasznos társ legyen a kirándulásaink során. A HuKi ingyenes, reklámmentes és nyílt forráskódú szoftver.</p>
                             </div>
 
                             <div class="btn-set store-badges">
                                 <a class="store-badge" href='https://play.google.com/store/apps/details?id=hu.mostoha.mobile.android.huki'>
-                                    <img class="store-badge-google" data-i18n-src="google_play_badge" data-i18n-alt="google_play_badge_alt" src='https://play.google.com/intl/en_us/badges/static/images/badges/hu_badge_web_generic.png' alt="HuKi app Google Play Store link"/>
+                                    <img class="store-badge-google" src='https://play.google.com/intl/en_us/badges/static/images/badges/hu_badge_web_generic.png' alt="HuKi app Google Play Store link"/>
                                 </a>
                                 <a class="store-badge" href='https://apps.apple.com/app/huki-hungarian-hiking-app/id6794327609'>
-                                    <img class="store-badge-apple" data-i18n-src="app_store_badge" data-i18n-alt="app_store_badge_alt" src='assets/img/app_store_badge_hu.svg' alt="HuKi app App Store link"/>
+                                    <img class="store-badge-apple" src='assets/img/app_store_badge_hu.svg' alt="HuKi app App Store link"/>
                                 </a>
                             </div>
                         </div>
@@ -219,12 +245,12 @@
                 <div class="col-md-4 col-sm-6">
                     <div class="hero-box">
                         <span class="lnr lnr-map"></span>
-                        <h3 data-i18n="features_hiking_trails_title">Túraútvonalak</h3>
-                        <p data-i18n="features_hiking_trails_desc">Az alkalmazás a klasszikus Magyar Túra réteget használja fel az országos túraútvonalakkal, amely integrálódik az alap térképpel.</p>
+                        <h3>Túraútvonalak</h3>
+                        <p>Az alkalmazás a klasszikus Magyar Túra réteget használja fel az országos túraútvonalakkal, amely integrálódik az alap térképpel.</p>
                         <br/>
                         <div class="screen">
                             <a href="assets/img/screenshots/huki_screenshot_hiking_layer.webp" class="screen-popup">
-                                <img loading="lazy" src="assets/img/screenshots/huki_screenshot_hiking_layer.webp" data-i18n-alt="features_hiking_trails_alt" alt="Túraútvonalak">
+                                <img loading="lazy" src="assets/img/screenshots/huki_screenshot_hiking_layer.webp" alt="Túraútvonalak">
                             </a>
                         </div>
                     </div>
@@ -234,12 +260,12 @@
                 <div class="col-md-4 col-sm-6">
                     <div class="hero-box">
                         <span class="lnr lnr-layers"></span>
-                        <h3 data-i18n="features_layers_title">Rétegek</h3>
-                        <p data-i18n="features_layers_desc">Az alkalmazás számos alap térkép réteggel rendelkezik, úgy mint Mapnik, OpenTopo, TuHu, Google Műhold, Merretekerjek.hu.</p>
+                        <h3>Rétegek</h3>
+                        <p>Az alkalmazás számos alap térkép réteggel rendelkezik, úgy mint Mapnik, OpenTopo, TuHu, Google Műhold, Merretekerjek.hu.</p>
                         <br/>
                         <div class="screen">
                             <a href="assets/img/screenshots/huki_screenshot_layers.webp" class="screen-popup">
-                                <img loading="lazy" src="assets/img/screenshots/huki_screenshot_layers.webp" data-i18n-alt="features_layers_alt" alt="Rétegek">
+                                <img loading="lazy" src="assets/img/screenshots/huki_screenshot_layers.webp" alt="Rétegek">
                             </a>
                         </div>
                     </div>
@@ -249,12 +275,12 @@
                 <div class="col-md-4 col-sm-6">
                     <div class="hero-box">
                         <span class="lnr lnr-flag"></span>
-                        <h3 data-i18n="features_route_planner_title">Útvonaltervező</h3>
-                        <p data-i18n="features_route_planner_desc">Az útvonaltervezővel lehetőségünk van túraútvonalakon tervezni. Az alkalmazás megbecsüli a túra hosszát, idejét és egy GPX fájlt készít belőle.</p>
+                        <h3>Útvonaltervező</h3>
+                        <p>Az útvonaltervezővel lehetőségünk van túraútvonalakon tervezni. Az alkalmazás megbecsüli a túra hosszát, idejét és egy GPX fájlt készít belőle.</p>
                         <br/>
                         <div class="screen">
                             <a href="assets/img/screenshots/huki_screenshot_route_planner_v2.webp" class="screen-popup">
-                                <img loading="lazy" src="assets/img/screenshots/huki_screenshot_route_planner_v2.webp" data-i18n-alt="features_route_planner_alt" alt="Útvonaltervező">
+                                <img loading="lazy" src="assets/img/screenshots/huki_screenshot_route_planner_v2.webp" alt="Útvonaltervező">
                             </a>
                         </div>
                     </div>
@@ -264,12 +290,12 @@
                 <div class="col-md-4 col-sm-6">
                     <div class="hero-box">
                         <span class="lnr lnr-location"></span>
-                        <h3 data-i18n="features_gpx_title">GPX nyomvonalak</h3>
-                        <p data-i18n="features_gpx_desc">HuKi-val importálhatóak a GPX fájlok és megjeleníthetőek a térképen. Az app táv, idő becslést és emelkedési színezést készít.</p>
+                        <h3>GPX nyomvonalak</h3>
+                        <p>HuKi-val importálhatóak a GPX fájlok és megjeleníthetőek a térképen. Az app táv, idő becslést és emelkedési színezést készít.</p>
                         <br/>
                         <div class="screen">
                             <a href="assets/img/screenshots/huki_screenshot_gpx_v2.webp" class="screen-popup">
-                                <img loading="lazy" src="assets/img/screenshots/huki_screenshot_gpx_v2.webp" data-i18n-alt="features_gpx_alt" alt="GPX nyomvonalak">
+                                <img loading="lazy" src="assets/img/screenshots/huki_screenshot_gpx_v2.webp" alt="GPX nyomvonalak">
                             </a>
                         </div>
                     </div>
@@ -279,12 +305,12 @@
                 <div class="col-md-4 col-sm-6">
                     <div class="hero-box">
                         <span class="lnr lnr-book"></span>
-                        <h3 data-i18n="features_landscapes_title">Tájegységek</h3>
-                        <p data-i18n="features_landscapes_desc">HuKi térképes nézeten mutatja a tájegységeket, a hozzájuk tartozó kedvelt kirándulóhelyeket és túragyűjteményeket.</p>
+                        <h3>Tájegységek</h3>
+                        <p>HuKi térképes nézeten mutatja a tájegységeket, a hozzájuk tartozó kedvelt kirándulóhelyeket és túragyűjteményeket.</p>
                         <br/>
                         <div class="screen">
                             <a href="assets/img/screenshots/huki_screenshot_landscapes.webp" class="screen-popup">
-                                <img loading="lazy" src="assets/img/screenshots/huki_screenshot_landscapes.webp" data-i18n-alt="features_landscapes_alt" alt="Tájegységek">
+                                <img loading="lazy" src="assets/img/screenshots/huki_screenshot_landscapes.webp" alt="Tájegységek">
                             </a>
                         </div>
                     </div>
@@ -294,12 +320,12 @@
                 <div class="col-md-4 col-sm-6">
                     <div class="hero-box">
                         <span class="lnr lnr-strikethrough"></span>
-                        <h3 data-i18n="features_okt_title">OKT - Országos Kéktúra</h3>
-                        <p data-i18n="features_okt_desc">A kéktúrázók számára elérhető egy funkció, ahol az OKT, RPDDK, AKT kéktúra szakaszok és bélyegzőhelyek is megtekinthetőek.</p>
+                        <h3>OKT - Országos Kéktúra</h3>
+                        <p>A kéktúrázók számára elérhető egy funkció, ahol az OKT, RPDDK, AKT kéktúra szakaszok és bélyegzőhelyek is megtekinthetőek.</p>
                         <br/>
                         <div class="screen">
                             <a href="assets/img/screenshots/huki_screenshot_okt_v2.webp" class="screen-popup">
-                                <img loading="lazy" src="assets/img/screenshots/huki_screenshot_okt_v2.webp" data-i18n-alt="features_okt_alt" alt="OKT - Országos Kéktúra">
+                                <img loading="lazy" src="assets/img/screenshots/huki_screenshot_okt_v2.webp" alt="OKT - Országos Kéktúra">
                             </a>
                         </div>
                     </div>
@@ -317,24 +343,24 @@
             <div class="row">
                 <div class="col-md-12 text-center">
                     <div class="section-title">
-                        <h2 data-i18n="faq_title">GYIK</h2>
-                        <p data-i18n="faq_subtitle">Gyakran Ismételt Kérdések</p>
+                        <h2>GYIK</h2>
+                        <p>Gyakran Ismételt Kérdések</p>
                     </div>
                 </div>
 
                 <!-- faq starts -->
                 <div class="col-md-8 col-md-offset-2">
                     <div class="faq">
-                        <h3 data-i18n="faq_ios_title">Elérhető a HuKi iPhone-ra is?</h3>
-                        <p data-i18n="faq_ios_desc">Igen, a HuKi már letölthető az App Store-ból iPhone-ra is. Az iOS verzió egy teljesen új platformra épít, ezért a funkciói lépésről lépésre fogják követni az Androidos verzió funkcióit.</p>
+                        <h3>Elérhető a HuKi iPhone-ra is?</h3>
+                        <p>Igen, a HuKi már letölthető az App Store-ból iPhone-ra is. Az iOS verzió egy teljesen új platformra épít, ezért a funkciói lépésről lépésre fogják követni az Androidos verzió funkcióit.</p>
                     </div>
                     <div class="faq">
-                        <h3 data-i18n="faq_offline_title">Van benne offline mód?</h3>
-                        <p data-i18n="faq_offline_desc">Gyorsítótáras offline mód van benne. Minden betöltött térkép részlet bekerül egy 14 napos adatbázisba, ami offline is használható. Eddigi tapasztalataim szerint ez a módszer az esetek nagy részét lefedi: parkolóban vagy túra közben szinte mindig van annyi internet, hogy a szükséges részeket letöltse, ezért a pillanatnyi megszakadásokat észre sem vesszük.</p>
+                        <h3>Van benne offline mód?</h3>
+                        <p>Gyorsítótáras offline mód van benne. Minden betöltött térkép részlet bekerül egy 14 napos adatbázisba, ami offline is használható. Eddigi tapasztalataim szerint ez a módszer az esetek nagy részét lefedi: parkolóban vagy túra közben szinte mindig van annyi internet, hogy a szükséges részeket letöltse, ezért a pillanatnyi megszakadásokat észre sem vesszük.</p>
                     </div>
                     <div class="faq">
-                        <h3 data-i18n="faq_full_offline_title">Lesz benne full-offline mód, előre letölthető térképpel?</h3>
-                        <p data-i18n="faq_full_offline_desc">Ezt már nagyon sokan kértétek tőlem, ezért mindenképp célkeresztben van. A jelenlegi raszteres render motorral ez nagyon nem lenne hatékony, több GB-nyi adatot kellene egyszerre letölteni teljes Magyarország térképhez. Több irányban is gondolkozok megoldásokban, pl. kisebb terület alapú letöltés vagy vektoros render motor használata.</p>
+                        <h3>Lesz benne full-offline mód, előre letölthető térképpel?</h3>
+                        <p>Ezt már nagyon sokan kértétek tőlem, ezért mindenképp célkeresztben van. A jelenlegi raszteres render motorral ez nagyon nem lenne hatékony, több GB adatot kellene egyszerre letölteni teljes Magyarország térképhez. Több irányban is gondolkozok megoldásokban, pl. kisebb terület alapú letöltés vagy vektoros render motor használata.</p>
                     </div>
                 </div>
                 <!-- faq ends -->
@@ -351,9 +377,9 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="section-title text-center">
-                        <h2 data-i18n="contact_title">Kapcsolat</h2>
+                        <h2>Kapcsolat</h2>
                         <br>
-                        <p data-i18n="contact_message">Az alkalmazást hobbiból fejlesztem szabadidőmben és különösen örülök a személyes visszajelzéseknek, a célom hogy másnak is hasznos legyen az app!</p>
+                        <p>Az alkalmazást hobbiból fejlesztem szabadidőmben és különösen örülök a személyes visszajelzéseknek, a célom hogy másnak is hasznos legyen az app!</p>
                     </div>
                 </div>
             </div>
@@ -362,7 +388,7 @@
                     <div class="contact-box">
                         <a href="mailto:huki.app@gmail.com">
                             <span class="fa fa-envelope-o"></span>
-                            <p data-i18n="contact_email">huki.app@gmail.com</p>
+                            <p>huki.app@gmail.com</p>
                         </a>
                     </div>
                 </div>
@@ -370,7 +396,7 @@
                     <div class="contact-box">
                         <a href="https://github.com/RolandMostoha/HuKi-Android/">
                             <span class="fa fa-code"></span>
-                            <p data-i18n="contact_github">GitHub Repository</p>
+                            <p>GitHub Repository</p>
                         </a>
                     </div>
                 </div>
@@ -392,16 +418,16 @@
                     <!-- Footer Widget -->
                     <div class="col-md-6">
                         <div class="footer-widget">
-                            <h3 data-i18n="footer_developer_title">Fejlesztő</h3>
+                            <h3>Fejlesztő</h3>
                             <div class="address">
                                 <div class="address-box clearfix">
-                                    <p><a href="https://www.linkedin.com/in/roland-mostoha-0485ba3b/"><span class="lnr lnr-user"></span> <span data-i18n="footer_developer_name">Mostoha Roland</span></a></p>
+                                    <p><a href="https://www.linkedin.com/in/roland-mostoha-0485ba3b/"><span class="lnr lnr-user"></span> <span>Mostoha Roland</span></a></p>
                                 </div>
                                 <div class="address-box clearfix">
-                                    <p><a href="mailto:roland.mostoha@gmail.com"><span class="lnr lnr-envelope"></span> <span data-i18n="footer_developer_email">roland.mostoha@gmail.com</span></a></p>
+                                    <p><a href="mailto:roland.mostoha@gmail.com"><span class="lnr lnr-envelope"></span> <span>roland.mostoha@gmail.com</span></a></p>
                                 </div>
                                 <div class="address-box clearfix">
-                                    <p><a href="https://www.linkedin.com/in/roland-mostoha-0485ba3b/"><span class="lnr lnr-link"></span> <span data-i18n="footer_developer_linkedin">LinkedIn - Mostoha Roland</span></a></p>
+                                    <p><a href="https://www.linkedin.com/in/roland-mostoha-0485ba3b/"><span class="lnr lnr-link"></span> <span>LinkedIn - Mostoha Roland</span></a></p>
                                 </div>
                             </div>
                         </div>
@@ -410,10 +436,10 @@
                     <!-- Footer Widget -->
                     <div class="col-md-6">
                         <div class="footer-widget">
-                            <h3 data-i18n="footer_legal_title">Adatvédelem</h3>
+                            <h3>Adatvédelem</h3>
                             <div class="address">
                                 <div class="address-box clearfix">
-                                    <p><a href="privacy-policy/"><span class="lnr lnr-lock"></span> <span data-i18n="footer_privacy_button">Adatkezelési tájékoztató</span></a></p>
+                                    <p><a href="privacy-policy/"><span class="lnr lnr-lock"></span> <span>Adatkezelési tájékoztató</span></a></p>
                                 </div>
                             </div>
                         </div>
@@ -431,7 +457,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-12 text-center">
-                        <p data-i18n="footer_copyright">Copyright &copy; 2026. Minden jog fenntartva</p>
+                        <p>Copyright &copy; 2026. Minden jog fenntartva</p>
                     </div>
 
                 </div>
@@ -449,9 +475,6 @@
 
     <!-- Main js-->
     <script src="assets/js/main_script.js?v=v1.8"></script>
-
-    <!-- Language js-->
-    <script src="assets/js/i18n.js?v=v1.8"></script>
 
 </body>
 

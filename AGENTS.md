@@ -59,19 +59,28 @@ commit-message convention.
 
 ## Internationalization architecture (the key thing to understand)
 
-Hungarian (`hu`) is the default/source language; English lives under `/en/`. There is **only one real landing page** — the root `index.html`.
+Hungarian (`hu`) is the default/source language; English lives under `/en/`. **Every page is a fully hardcoded, standalone HTML file in its own language** — there is no translation layer, no JSON string table, and no client-side rendering. The URL is the language selector.
 
-- **`lang/hu.json` and `lang/en.json`** hold the translations, keyed by the `data-i18n*` attribute values.
-- **`index.html`** is authored in Hungarian, but every translatable node is tagged with `data-i18n*` attributes (`data-i18n` for text, `data-i18n-src`, `data-i18n-alt`, `data-i18n-content`). The hardcoded Hungarian text is the fallback shown before JS runs.
-- **`en/index.html`** is a near-empty stub, it fetches the root `index.html` for reusability.
+- **`index.html`** — Hungarian landing page.
+- **`en/index.html`** — English landing page: a full copy with English copy, canonical `https://huki.hu/en/`, and a `🇭🇺 HU` switcher. CSS/JS/images use `../`; favicons and the manifest stay root-absolute (`/…`), matching the root page.
+- The Privacy Policy pages (`privacy-policy/` and `en/privacy-policy/`) follow the same convention.
 
 Consequences when editing:
-- To change landing-page content/structure, edit **`index.html` only** — never touch `en/index.html` for content.
-- Any new user-visible string needs a `data-i18n*` attribute plus a matching key added to **both** `lang/hu.json` and `lang/en.json`.
-- The Privacy Policy pages (`privacy-policy/` and `en/privacy-policy/`) are separate standalone HTML files and are **not** driven by the i18n loaders — they are maintained as two independent language versions.
+- **Any landing-page content or structure change must be applied to BOTH `index.html` and `en/index.html`.** Nothing enforces this — the two files drifting apart is the one real failure mode of this setup.
+- Watch the per-language differences when copying a change across: relative paths (`assets/` vs `../assets/`), `<html lang>`, `<title>`, meta description, Open Graph / Twitter tags, `rel="canonical"`, the JSON-LD block, the store badge images (`hu_badge_web_generic.png` / `app_store_badge_hu.svg` vs their `en` counterparts), and the language switcher link.
+- `hreflang` alternates and the canonical of each page must keep pointing at the pair `/` ↔ `/en/`.
+
+### Language preference
+
+An inline `<script>` in the `<head>` of the two landing pages stores the visitor's language in `localStorage.lang`, and the root redirects to `en/` when the stored value is `en`. The Privacy Policy pages don't participate — they are reached by an explicit link and always serve their own language.
+
+Three details are load-bearing:
+- **Only an explicit switch records a preference.** Both switchers carry `?lang=` (`en/?lang=en` and `../?lang=hu`), and each page stores the value only when that param is present. Merely landing on `/en/` from a shared link must not convert a Hungarian visitor to English.
+- **The redirect fires at most once per tab** (`sessionStorage.langRedirected`). Without the guard, pressing Back from `/en/` hits the root, which `location.replace`s straight back to `/en/` — an inescapable loop, since `replace` overwrites the history entry.
+- **No `navigator.language` sniffing.** Crawlers have no `localStorage`, so Googlebot always gets the Hungarian root page — this is what keeps `/index.html` and the `www` variants out of Search Console's "Page with redirect" bucket.
 
 ## Layout conventions
 
-- Vendored libraries and the theme's original template code live in `assets/js/` (`jquery.min.js`, `plugin.js`, `main_script.js` — the last is third-party "Pushpo" template JS). Project-authored logic is `i18n.js` and `en_loader.js`.
+- All of `assets/js/` is vendored / theme code (`jquery.min.js`, `plugin.js`, `main_script.js` — the last is third-party "Pushpo" template JS). There is no project-authored JS file; the only project JS is the inline language-preference snippet in each page's `<head>`.
 - SEO/deeplink files live at the repo root or well-known locations: `sitemap.xml`, `robots.txt`, `site.webmanifest`, `.well-known/assetlinks.json` (Android App Links / deeplink verification). Keep these consistent with any URL/domain changes.
 - Canonical domain is `https://huki.hu` (non-www); `hreflang` alternates point `hu` → `/` and `en` → `/en/`.

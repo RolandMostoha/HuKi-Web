@@ -5,7 +5,7 @@
     <!-- meta -->
     <meta charset="utf-8">
     <meta name="viewport"               content="width=device-width, initial-scale=1.0">
-    <meta name="description"            content="HuKi is a hiking app for Android and iPhone built on Hungary's hiking trails and waymarks. It also supports route planning and GPX display.">
+    <meta name="description"            content="HuKi is a hiking app for Android and iPhone built on Hungary's hiking trails and traditional waymarks. It also handles route planning and GPX display.">
     <meta name="author"                 content="Roland Mostoha">
 
     <!-- Site title -->
@@ -13,7 +13,7 @@
 
     <!-- Open Graph meta -->
     <meta property="og:title"           content="HuKi - Hungarian Hiking Map"/>
-    <meta property="og:description"     content="HuKi is a hiking app for Android and iPhone built on Hungary's hiking trails and waymarks. It also supports route planning and GPX display."/>
+    <meta property="og:description"     content="HuKi is a hiking app for Android and iPhone built on Hungary's hiking trails and traditional waymarks. It also handles route planning and GPX display."/>
     <meta property="og:url"             content="https://huki.hu/en/"/>
     <meta property="og:image"           content="https://huki.hu/assets/img/huki_feature_graphic_1200x630.png"/>
     <meta property="og:image:width"     content="1200" />
@@ -28,7 +28,7 @@
     <!-- Twitter meta -->
     <meta name="twitter:card"           content="summary_large_image">
     <meta name="twitter:title"          content="HuKi - Hungarian Hiking Map">
-    <meta name="twitter:description"    content="HuKi is a hiking app for Android and iPhone built on Hungary's hiking trails and waymarks. It also supports route planning and GPX display.">
+    <meta name="twitter:description"    content="HuKi is a hiking app for Android and iPhone built on Hungary's hiking trails and traditional waymarks. It also handles route planning and GPX display.">
     <meta name="twitter:site"           content="@RolandMostoha">
     <meta name="twitter:image"          content="https://huki.hu/assets/img/huki_feature_graphic_1200x630.png">
     <meta name="twitter:image:alt"      content="The HuKi hiking app showing a map of Hungarian hiking trails and waymarks.">
@@ -44,28 +44,431 @@
     <link rel="alternate" hreflang="x-default" href="https://huki.hu" />
 
     <!-- favicon -->
-    <link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon-v3.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="../favicon-v3r-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="../favicon-v3r-16x16.png">
-    <link rel="icon" type="image/svg+xml" href="../assets/img/huki_favicon_rounded.svg">
-    <link rel="manifest" href="../site.webmanifest">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon-v3.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-v3r-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-v3r-16x16.png">
+    <link rel="icon" type="image/svg+xml" href="/assets/img/huki_favicon_rounded.svg">
+    <link rel="manifest" href="/site.webmanifest">
+
+    <!-- Structured data: links this site to both store listings -->
+    <script type="application/ld+json">
+    [
+      {
+        "@context": "https://schema.org",
+        "@type": "MobileApplication",
+        "name": "HuKi - Hungarian Hiking Map",
+        "alternateName": "HuKi - Magyar Túratérkép",
+        "description": "HuKi is a hiking app for Android that shows national hiking trails, is capable of route planning and GPX trail display.",
+        "operatingSystem": "Android",
+        "applicationCategory": "TravelApplication",
+        "url": "https://huki.hu/en/",
+        "downloadUrl": "https://play.google.com/store/apps/details?id=hu.mostoha.mobile.android.huki",
+        "installUrl": "https://play.google.com/store/apps/details?id=hu.mostoha.mobile.android.huki",
+        "screenshot": "https://huki.hu/assets/img/huki_feature_graphic_1200x630.png",
+        "inLanguage": ["hu", "en"],
+        "isAccessibleForFree": true,
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "HUF"
+        },
+        "author": {
+          "@type": "Person",
+          "name": "Roland Mostoha",
+          "url": "https://github.com/RolandMostoha"
+        },
+        "sameAs": [
+          "https://apps.apple.com/app/huki-hungarian-hiking-app/id6794327609",
+          "https://github.com/RolandMostoha/HuKi-Android/"
+        ]
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "MobileApplication",
+        "name": "HuKi - Hungarian Hiking Map",
+        "alternateName": "HuKi - Magyar Túratérkép",
+        "description": "HuKi is a hiking app for iPhone that shows national hiking trails, is capable of route planning and GPX trail display.",
+        "operatingSystem": "iOS",
+        "applicationCategory": "TravelApplication",
+        "url": "https://huki.hu/en/",
+        "downloadUrl": "https://apps.apple.com/app/huki-hungarian-hiking-app/id6794327609",
+        "installUrl": "https://apps.apple.com/app/huki-hungarian-hiking-app/id6794327609",
+        "screenshot": "https://huki.hu/assets/img/huki_feature_graphic_1200x630.png",
+        "inLanguage": ["hu", "en"],
+        "isAccessibleForFree": true,
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "HUF"
+        },
+        "author": {
+          "@type": "Person",
+          "name": "Roland Mostoha",
+          "url": "https://github.com/RolandMostoha"
+        },
+        "sameAs": [
+          "https://play.google.com/store/apps/details?id=hu.mostoha.mobile.android.huki",
+          "https://github.com/RolandMostoha/HuKi-Android/"
+        ]
+      }
+    ]
+    </script>
+
+    <!-- Language preference saved in storage -->
+    <script>
+        (function () {
+            // Only an explicit switch (?lang=en from the switcher on the root) records a
+            // preference — landing here from a shared link must not convert a HU visitor.
+            var params = new URLSearchParams(location.search);
+            if (params.get('lang') === 'en') {
+                // Storage may throw (Safari with site data blocked); the URL is tidied either way.
+                try { localStorage.setItem('lang', 'en'); } catch (e) {}
+                params.delete('lang');
+                var query = params.toString();
+                history.replaceState(null, '', location.pathname + (query ? '?' + query : '') + location.hash);
+            }
+            // This tab has settled on a language, so a Back navigation to the root must not
+            // be redirected here again — that loop is inescapable, Back lands on this page.
+            try { sessionStorage.setItem('langRedirected', '1'); } catch (e) {}
+        })();
+    </script>
 
     <!-- CSS -->
     <link href="../assets/css/plugin.css?v=v1.8" rel="stylesheet">
     <link href="../assets/css/style.css?v=v1.8" rel="stylesheet">
     <link href="../assets/css/responsive.css?v=v1.8" rel="stylesheet">
 
-    <!-- Hide page until content is loaded to prevent "FOUC" (Flash of Unstyled Content) -->
-    <style>
-        body {
-            visibility: hidden;
-        }
-    </style>
-
 </head>
 
 <body>
-<script src="../assets/js/en_loader.js?v=v1.8"></script>
+
+    <!-- Preloader starts-->
+    <div id="preloader"></div>
+    <!-- Preloader ends -->
+
+    <!-- Navigation area starts -->
+    <div class="menu-area navbar-fixed-top">
+        <div class="container">
+            <div class="row">
+
+                <!-- Navigation starts -->
+                <div class="col-md-12">
+                    <div class="mainmenu">
+                        <div class="navbar navbar-nobg">
+                            <div class="navbar-header">
+                                <a class="navbar-brand" href="./">
+                                    <img class="navbar-logo" src="../assets/img/huki_logo_text_v2.svg" width="100px" alt="HuKi Home">
+                                </a>
+                                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                                    <span class="sr-only">Toggle navigation</span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                </button>
+                            </div>
+
+                            <div class="navbar-collapse collapse">
+                                <nav>
+                                    <ul class="nav navbar-nav navbar-center">
+                                        <li><a class="smooth_scroll" href="#slider">HOME</a></li>
+                                        <li><a class="smooth_scroll" href="#features">FEATURES</a></li>
+                                        <li><a class="smooth_scroll" href="#faq">FAQ</a></li>
+                                        <li><a class="smooth_scroll" href="#contact">CONTACT</a></li>
+                                        <li class="lang-switcher"><a href="../?lang=hu"><span class="lang-flag">🇭🇺</span> HU</a></li>
+                                    </ul>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Navigation ends -->
+
+            </div>
+        </div>
+    </div>
+    <!-- Navigation area ends -->
+
+    <main>
+
+    <!-- Slider area starts -->
+    <section id="slider" class="slider-area ground">
+            <div class="container">
+                <div class="row d-flex">
+
+                    <!-- slider text -->
+                    <div class="col-md-6 col-sm-12 col-xs-12">
+                        <div class="slider-text clearfix">
+                            <div class="slider-copy">
+                                <div class="slider-logo">
+                                    <img class="slider-logo-icon" src="../assets/img/huki_logo_icon_v3.webp" alt="">
+                                    <img class="slider-logo-text" src="../assets/img/huki_logo_text_v2_green.svg" alt="HuKi">
+                                </div>
+                                <h1 class="stroked">Hungarian Hiking Map</h1>
+                                <p class="stroked">HuKi is a hiking app for hikers and outdoor enthusiasts, built around Hungary's hiking trail network and its traditional trail markers. Its goal is to promote the exploration of Hungary's natural beauty while serving as a helpful companion on our adventures. HuKi is free, ad-free, and open-source software.</p>
+                            </div>
+
+                            <div class="btn-set store-badges">
+                                <a class="store-badge" href='https://play.google.com/store/apps/details?id=hu.mostoha.mobile.android.huki'>
+                                    <img class="store-badge-google" src='https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png' alt="Get it on Google Play"/>
+                                </a>
+                                <a class="store-badge" href='https://apps.apple.com/app/huki-hungarian-hiking-app/id6794327609'>
+                                    <img class="store-badge-apple" src='../assets/img/app_store_badge_en.svg' alt="Download on the App Store"/>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- slider image -->
+                    <div class="col-md-6 col-sm-12 col-xs-12 slider-img">
+                        <img src="../assets/img/screenshots/huki_screenshot_landing_v2.webp" height="750px" alt="HuKi Landing Screenshot">
+                    </div>
+
+                </div>
+            </div>
+    </section>
+    <!-- Slider area ends -->
+
+    <!-- Hero boxes starts -->
+    <section id="features" class="hero-box-area section-big">
+        <div class="container">
+
+            <div class="row">
+
+                <!-- Hero box -->
+                <div class="col-md-4 col-sm-6">
+                    <div class="hero-box">
+                        <span class="lnr lnr-map"></span>
+                        <h3>Hiking Trails</h3>
+                        <p>The application uses the classic Hungarian Hike layer with the national hiking trails, which is integrated with the base map.</p>
+                        <br/>
+                        <div class="screen">
+                            <a href="../assets/img/screenshots/huki_screenshot_hiking_layer.webp" class="screen-popup">
+                                <img loading="lazy" src="../assets/img/screenshots/huki_screenshot_hiking_layer.webp" alt="Hiking Trails">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Hero box -->
+                <div class="col-md-4 col-sm-6">
+                    <div class="hero-box">
+                        <span class="lnr lnr-layers"></span>
+                        <h3>Layers</h3>
+                        <p>The application has several base map layers, such as Mapnik, OpenTopo, TuHu, Google Satellite, Merretekerjek.hu.</p>
+                        <br/>
+                        <div class="screen">
+                            <a href="../assets/img/screenshots/huki_screenshot_layers.webp" class="screen-popup">
+                                <img loading="lazy" src="../assets/img/screenshots/huki_screenshot_layers.webp" alt="Layers">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Hero box -->
+                <div class="col-md-4 col-sm-6">
+                    <div class="hero-box">
+                        <span class="lnr lnr-flag"></span>
+                        <h3>Route Planner</h3>
+                        <p>With the route planner, we can plan routes on hiking trails. The application estimates the length and time of the tour and creates a GPX file.</p>
+                        <br/>
+                        <div class="screen">
+                            <a href="../assets/img/screenshots/huki_screenshot_route_planner_v2.webp" class="screen-popup">
+                                <img loading="lazy" src="../assets/img/screenshots/huki_screenshot_route_planner_v2.webp" alt="Route Planner">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Hero box -->
+                <div class="col-md-4 col-sm-6">
+                    <div class="hero-box">
+                        <span class="lnr lnr-location"></span>
+                        <h3>GPX Tracks</h3>
+                        <p>With HuKi, GPX files can be imported and displayed on the map. The app provides distance, time estimation, and elevation coloring.</p>
+                        <br/>
+                        <div class="screen">
+                            <a href="../assets/img/screenshots/huki_screenshot_gpx_v2.webp" class="screen-popup">
+                                <img loading="lazy" src="../assets/img/screenshots/huki_screenshot_gpx_v2.webp" alt="GPX Tracks">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Hero box -->
+                <div class="col-md-4 col-sm-6">
+                    <div class="hero-box">
+                        <span class="lnr lnr-book"></span>
+                        <h3>Landscapes</h3>
+                        <p>HuKi shows the hungarian landscapes on a map view, with their associated popular excursion places and hiking collections.</p>
+                        <br/>
+                        <div class="screen">
+                            <a href="../assets/img/screenshots/huki_screenshot_landscapes.webp" class="screen-popup">
+                                <img loading="lazy" src="../assets/img/screenshots/huki_screenshot_landscapes.webp" alt="Landscapes">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Hero box -->
+                <div class="col-md-4 col-sm-6">
+                    <div class="hero-box">
+                        <span class="lnr lnr-strikethrough"></span>
+                        <h3>OKT - National Blue Trail</h3>
+                        <p>For blue trail hikers, a feature is available where the OKT, RPDDK, AKT blue rail sections and stamp locations can also be viewed.</p>
+                        <br/>
+                        <div class="screen">
+                            <a href="../assets/img/screenshots/huki_screenshot_okt_v2.webp" class="screen-popup">
+                                <img loading="lazy" src="../assets/img/screenshots/huki_screenshot_okt_v2.webp" alt="OKT - National Blue Trail">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+    <!-- Hero boxes ends -->
+
+    <!-- faq area starts -->
+    <section id="faq" class="faq-area section-big">
+        <div class="container">
+
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <div class="section-title">
+                        <h2>FAQ</h2>
+                        <p>Frequently Asked Questions</p>
+                    </div>
+                </div>
+
+                <!-- faq starts -->
+                <div class="col-md-8 col-md-offset-2">
+                    <div class="faq">
+                        <h3>Is HuKi available for iPhone?</h3>
+                        <p>Yes, HuKi can now be downloaded from the App Store for iPhone. The iOS version is built on a completely new platform, so its features will follow those of the Android version step by step.</p>
+                    </div>
+                    <div class="faq">
+                        <h3>Is there an offline mode?</h3>
+                        <p>It has a cache based offline mode. Every loaded map tile is placed in a 14-day database that can be used offline. In my experience, this method covers most cases: in the parking lot or during a hike, there is almost always enough internet to download the necessary tiles, so we don't even notice momentary interruptions.</p>
+                    </div>
+                    <div class="faq">
+                        <h3>Will there be a full-offline mode with a pre-downloadable map?</h3>
+                        <p>Many of you have asked for this, so it is definitely a priority. With the current raster rendering engine, this would not be very efficient, as it would require downloading several GB of data for the entire map of Hungary. I am considering several solutions, such as smaller area-based downloads or using a vector rendering engine.</p>
+                    </div>
+                </div>
+                <!-- faq ends -->
+
+            </div>
+        </div>
+    </section>
+    <!-- screenshot area ends -->
+
+    <!-- Contact form area start -->
+    <section id="contact" class="contact-form-area section-big">
+
+        <div class="container contact">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="section-title text-center">
+                        <h2>Contact</h2>
+                        <br>
+                        <p>I develop the application as a hobby in my free time and I am particularly happy to receive personal feedback, my goal is for the app to be useful to others too!</p>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="contact-box">
+                        <a href="mailto:huki.app@gmail.com">
+                            <span class="fa fa-envelope-o"></span>
+                            <p>huki.app@gmail.com</p>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="contact-box">
+                        <a href="https://github.com/RolandMostoha/HuKi-Android/">
+                            <span class="fa fa-code"></span>
+                            <p>GitHub Repository</p>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </section>
+    <!-- Contact form area ends -->
+
+    </main>
+
+    <!-- Footer area starts -->
+    <footer>
+
+        <div class="footer-widget-area section-big">
+            <div class="container">
+                <div class="row">
+
+                    <!-- Footer Widget -->
+                    <div class="col-md-6">
+                        <div class="footer-widget">
+                            <h3>Developer</h3>
+                            <div class="address">
+                                <div class="address-box clearfix">
+                                    <p><a href="https://www.linkedin.com/in/roland-mostoha-0485ba3b/"><span class="lnr lnr-user"></span> <span>Roland Mostoha</span></a></p>
+                                </div>
+                                <div class="address-box clearfix">
+                                    <p><a href="mailto:roland.mostoha@gmail.com"><span class="lnr lnr-envelope"></span> <span>roland.mostoha@gmail.com</span></a></p>
+                                </div>
+                                <div class="address-box clearfix">
+                                    <p><a href="https://www.linkedin.com/in/roland-mostoha-0485ba3b/"><span class="lnr lnr-link"></span> <span>LinkedIn - Roland Mostoha</span></a></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Footer Widget -->
+                    <div class="col-md-6">
+                        <div class="footer-widget">
+                            <h3>Privacy Policy</h3>
+                            <div class="address">
+                                <div class="address-box clearfix">
+                                    <p><a href="privacy-policy/"><span class="lnr lnr-lock"></span> <span>Privacy Policy</span></a></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+        <div class="clearfix"></div>
+
+        <!-- Footer Bottom area -->
+        <div class="footer-bottom-area">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <p>Copyright &copy; 2026. All rights reserved</p>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </footer>
+    <!-- Footer area ends -->
+
+    <!-- Latest jQuery -->
+    <script src="../assets/js/jquery.min.js"></script>
+
+    <!-- Plugin js -->
+    <script src="../assets/js/plugin.js"></script>
+
+    <!-- Main js-->
+    <script src="../assets/js/main_script.js?v=v1.8"></script>
+
 </body>
 
 </html>
