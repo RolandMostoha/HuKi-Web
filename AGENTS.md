@@ -67,7 +67,7 @@ Hungarian (`hu`) is the default/source language; English lives under `/en/`. **E
 
 Consequences when editing:
 - **Any landing-page content or structure change must be applied to BOTH `index.html` and `en/index.html`.** Nothing enforces this — the two files drifting apart is the one real failure mode of this setup.
-- Watch the per-language differences when copying a change across: relative paths (`assets/` vs `../assets/`), `<html lang>`, `<title>`, meta description, Open Graph / Twitter tags, `rel="canonical"`, the JSON-LD block, the store badge images (`hu_badge_web_generic.png` / `app_store_badge_hu.svg` vs their `en` counterparts), and the language switcher link.
+- Watch the per-language differences when copying a change across: relative paths (`assets/` vs `../assets/`), `<html lang>`, `<title>`, meta description, Open Graph / Twitter tags, `rel="canonical"`, the JSON-LD block, the store badge images (`google_play_badge_hu.png` / `app_store_badge_hu.svg` vs their `en` counterparts), and the language switcher link.
 - `hreflang` alternates and the canonical of each page must keep pointing at the pair `/` ↔ `/en/`.
 
 ### Language preference
