@@ -73,7 +73,7 @@
                     <div class="col-md-10 col-md-offset-1">
                         <div class="privacy-card">
                             <h1>Privacy Policy</h1>
-                            <p class="updated">Last updated: 2026-07-21</p>
+                            <p class="updated">Last updated: 2026-11-07</p>
 
                             <p>
                                 This Privacy Policy explains how HuKi processes personal data when you use the iOS and
@@ -94,6 +94,12 @@
                                 This policy applies to the processing of personal data in connection with the HuKi app.
                                 HuKi does not operate user accounts, does not require sign-in, does not sell personal
                                 data, and does not display in-app advertising.
+                            </p>
+                            <p>
+                                HuKi can be supported voluntarily with one-time purchases or monthly subscriptions through
+                                the App Store or Google Play. Support unlocks no additional features: every feature of HuKi
+                                stays free for everyone. As a thank-you, supporters get a badge with their chosen forest
+                                animal, which appears in places inside the app, such as the menu and the Support screen.
                             </p>
                             <p>
                                 <strong>
@@ -119,6 +125,8 @@
                                 <li><strong>Diagnostic and crash data:</strong> technical information related to crashes, errors, and app stability.</li>
                                 <li><strong>Analytics data:</strong> aggregated usage events and app interaction statistics.</li>
                                 <li><strong>Technical network and device data:</strong> IP address, installation identifiers, operating system, app version, and similar data when required by map, search, or diagnostics infrastructure.</li>
+                                <li><strong>Purchase data:</strong> if you support HuKi, which support packages you purchased, your subscription status, and the purchase identifiers provided by the App Store or Google Play. HuKi never receives your payment card details, your name, or your Apple or Google account.</li>
+                                <li><strong>Email correspondence:</strong> your email address and the content of your message, if you contact HuKi by email.</li>
                             </ul>
 
                             <h2>4. Why HuKi uses data</h2>
@@ -127,8 +135,11 @@
                                 <li>to improve nearby and relevant hiking destination suggestions;</li>
                                 <li>to provide online place search and autocomplete results;</li>
                                 <li>to render maps and route-related content;</li>
+                                <li>to plan routes between the points you choose in the Route Planner;</li>
                                 <li>to import, read, manage, and keep GPX files on your device;</li>
                                 <li>to remember recent places and GPX history locally on the device;</li>
+                                <li>to process voluntary support purchases, show your supporter badge, and restore your purchases after reinstalling the app or on a new device;</li>
+                                <li>to answer your emails;</li>
                                 <li>to diagnose errors, improve app stability, and understand usage trends.</li>
                             </ul>
 
@@ -137,7 +148,8 @@
                             <ul>
                                 <li><strong>consent or operating system permission</strong>, especially for location access;</li>
                                 <li><strong>performance of the requested service</strong>, when HuKi provides features you actively use, such as maps, search, or GPX handling;</li>
-                                <li><strong>legitimate interests</strong>, for app security, reliability, debugging, and product improvement.</li>
+                                <li><strong>performance of a contract</strong>, when you make a voluntary support purchase;</li>
+                                <li><strong>legitimate interests</strong>, for app security, reliability, debugging, product improvement, and answering your emails.</li>
                             </ul>
 
                             <h2>6. Location data</h2>
@@ -159,7 +171,14 @@
                                 <li><strong>GPX metadata:</strong> such as file name, last opened time, distance, and estimated travel time.</li>
                                 <li><strong>Place history:</strong> locally stored records of places you previously opened.</li>
                                 <li><strong>Settings:</strong> app preferences and configuration values.</li>
+                                <li><strong>Supporter records:</strong> the support packages you purchased, their purchase identifiers, and the supporter animal you chose.</li>
                             </ul>
+                            <p>
+                                On Android, the app settings, including the supporter records, may be included in your
+                                device's Android backup (Google cloud backup and device-to-device transfer), so your
+                                supporter badge is kept when you restore or move to a new device. GPX files and place
+                                history are not included in this backup.
+                            </p>
                             <p>
                                 HuKi primarily manages this data on-device. You can remove it from within the app where
                                 supported, by clearing app data, or by uninstalling the app, depending on the data
@@ -180,7 +199,32 @@
                                     <a href="https://locationiq.com/privacy">LocationIQ Privacy Policy</a>
                                 </li>
                                 <li>
-                                    <strong>Firebase Analytics</strong> for aggregated app usage analytics. More
+                                    <strong>GraphHopper</strong> for route planning. The points of the route you plan
+                                    are sent to calculate the route. More information:
+                                    <a href="https://www.graphhopper.com/privacy/">GraphHopper Privacy Policy</a>
+                                </li>
+                                <li>
+                                    <strong>HuKi-Routing</strong>, HuKi's own route planning server for routes within
+                                    Hungary, which may be used instead of GraphHopper. It runs on Google Cloud (Cloud
+                                    Run, Belgium, EU) and is a stateless routing engine: it receives the points of the
+                                    route you plan, calculates the route and returns it to the app.
+                                    <strong>HuKi-Routing never stores your route points or any other location.</strong>
+                                    Google Cloud only keeps technical request logs without coordinates (time, response
+                                    status, IP address) for up to 30 days. More information:
+                                    <a href="https://cloud.google.com/terms/cloud-privacy-notice">Google Cloud Privacy Notice</a>
+                                </li>
+                                <li>
+                                    <strong>Apple App Store</strong> and <strong>Google Play</strong> for processing
+                                    voluntary support purchases and subscriptions. Payments are handled entirely by
+                                    Apple or Google; HuKi only receives the purchase result. More information:
+                                    <a href="https://www.apple.com/legal/privacy/">Apple Privacy Policy</a>,
+                                    <a href="https://policies.google.com/privacy">Google Privacy Policy</a>
+                                </li>
+                                <li>
+                                    <strong>Firebase Analytics</strong> for aggregated app usage analytics, including
+                                    support-related events (such as which support package was selected or purchased,
+                                    with its price and currency where the store reports it) and your supporter level.
+                                    No payment details or account data are sent. More
                                     information:
                                     <a href="https://firebase.google.com/support/privacy">Firebase Privacy and Security</a>
                                 </li>
@@ -200,6 +244,9 @@
                                 <li><strong>GPX files and related local metadata:</strong> remain on your device until you delete them.</li>
                                 <li><strong>Place history:</strong> remains on your device until app data is cleared or the feature later offers dedicated deletion controls.</li>
                                 <li><strong>Firebase Crashlytics data:</strong> according to Firebase's official privacy documentation, crash stack traces and related identifiers are generally retained for 90 days before removal begins from live and backup systems.</li>
+                                <li><strong>HuKi-Routing route planning requests:</strong> route points are not stored; technical request logs without coordinates are kept by Google Cloud for up to 30 days.</li>
+                                <li><strong>Supporter records:</strong> remain on your device (and in your Android backup, if enabled) until app data is cleared or the app is uninstalled. Apple and Google keep their own transaction records according to their policies.</li>
+                                <li><strong>Emails:</strong> kept only as long as needed to answer and follow up on your message.</li>
                                 <li><strong>Analytics and other third-party data:</strong> are retained according to the provider's own retention settings and policies.</li>
                             </ul>
 
@@ -237,6 +284,7 @@
                                 <li>delete imported GPX files from the app;</li>
                                 <li>clear app data in your device settings;</li>
                                 <li>uninstall the app from your device;</li>
+                                <li>cancel a support subscription at any time in the App Store or Google Play subscription settings; refunds are handled by Apple or Google;</li>
                                 <li>email HuKi about data processed by external services where applicable.</li>
                             </ul>
 
