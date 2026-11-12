@@ -58,12 +58,19 @@ body {
 
 
 :root {
-    --primary-color-rgb: 19, 99, 19;
-    --primary-color: #125C12;
+    --primary-color-rgb: 30, 77, 38;
+    --primary-color: #1E4D26;
+    /* Deep green of the chrome: sticky header bar, mobile menu panel, footer */
+    --chrome-color: #1E4D26;
     /* Dark greens used over the light landing background */
     --menu-text-color: #1E4D26;
     --hero-heading-color: #1E4D26;
     --hero-text-color: #1F3D28;
+    /* Icon discs (feature cards, contact cards, language toggle): ink, disc
+       tint, and the pale ring around the disc */
+    --icon-ink: #2F492C;
+    --icon-tint: #E5EEE1;
+    --icon-ring: #F2F5EF;
 }
 
 body {
@@ -401,10 +408,6 @@ img {
     }
 }
 
-.menu-area.sticky-menu {
-    background: rgb(var(--primary-color-rgb));
-}
-
 .sticky-menu {
     box-shadow: 0px 20px 50px 0px rgba(153, 153, 153, 0.1);
 }
@@ -551,15 +554,77 @@ img {
 
 
 /*Dropdown Css*/
-.navbar-nav > li.lang-switcher > a {
-    padding-left: 20px;
-    padding-right: 20px;
+/* Language toggle: a HU | EN pill whose filled segment is the current page's
+   language. The whole pill is one link to the other language. Dark ink over
+   the light hero; inverted wherever the green bar is behind it. */
+.navbar-nav > li.lang-switcher > a.lang-toggle {
+    --toggle-ink: var(--icon-ink);
+    --toggle-on-text: #fff;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    margin: 0;
+    padding: 6px;
+    border-radius: 999px;
+    border: 1px solid rgba(47, 73, 44, 0.22);
+    background: rgba(47, 73, 44, 0.06);
+    color: var(--toggle-ink);
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    line-height: 1;
+    transition: border-color 0.2s ease, background-color 0.2s ease;
 }
 
-.lang-flag {
-    font-size: 24px;
-    line-height: 1;
-    vertical-align: -2px;
+.sticky-menu .navbar-nav > li.lang-switcher > a.lang-toggle,
+.privacy-policy-page .navbar-nav > li.lang-switcher > a.lang-toggle {
+    --toggle-ink: #fff;
+    --toggle-on-text: var(--icon-ink);
+    border-color: rgba(255, 255, 255, 0.28);
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.lang-toggle .lang-option {
+    padding: 10px 18px;
+    border-radius: 999px;
+    color: var(--toggle-ink);
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.lang-toggle .lang-option.is-active {
+    background: var(--toggle-ink);
+    color: var(--toggle-on-text);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.18);
+}
+
+/* Hint at the switch: the other language lights up under the pointer. */
+.navbar-nav > li.lang-switcher:hover > a.lang-toggle {
+    background: rgba(47, 73, 44, 0.06);
+}
+.sticky-menu .navbar-nav > li.lang-switcher:hover > a.lang-toggle,
+.privacy-policy-page .navbar-nav > li.lang-switcher:hover > a.lang-toggle {
+    background: rgba(255, 255, 255, 0.08);
+}
+.lang-toggle:hover .lang-option:not(.is-active),
+.lang-toggle:focus-visible .lang-option:not(.is-active) {
+    background: rgba(47, 73, 44, 0.12);
+}
+.sticky-menu .lang-toggle:hover .lang-option:not(.is-active),
+.privacy-policy-page .lang-toggle:hover .lang-option:not(.is-active) {
+    background: rgba(255, 255, 255, 0.16);
+}
+
+/* Below 1200px the (invisible) logo stays in the bar's flow, leaving about
+   100px for the toggle before the menu wraps onto a second line. */
+@media (min-width: 768px) and (max-width: 1199px) {
+    .navbar-nav > li.lang-switcher > a.lang-toggle {
+        margin: 7px 0;
+        padding: 3px;
+        font-size: 13px;
+    }
+    .lang-toggle .lang-option {
+        padding: 7px 10px;
+    }
 }
 
 .navbar-nav > li > a {
@@ -720,7 +785,7 @@ img {
 .slider-logo {
     display: flex;
     align-items: center;
-    gap: 24px;
+    gap: 29px;
     margin-bottom: 23px;
 }
 
@@ -866,7 +931,7 @@ html[lang="en"] .store-badges {
     }
     .slider-logo {
         justify-content: center;
-        gap: 16px;
+        gap: 20px;
     }
     .slider-logo-icon {
         height: 80px;
@@ -918,76 +983,178 @@ html[lang="en"] .store-badges {
     }    
 }
 
+/* The feature columns are floats of unequal height (screenshots differ in
+   aspect ratio), so each row has to clear explicitly or a later box snags on
+   a taller one above it: 2 per row on tablets, 3 per row from 992px. */
+@media (min-width: 768px) and (max-width: 991px) {
+    .hero-box-area .row > .col-sm-6:nth-child(2n+1) {
+        clear: left;
+    }
+}
+@media (min-width: 992px) {
+    .hero-box-area .row > .col-md-4:nth-child(3n+1) {
+        clear: left;
+    }
+}
+
 .hero-box {
     margin-top: 30px;
     padding: 0px 30px;
     text-align: center;
 }
 
-.hero-box i.fa, 
-.hero-box span.lnr {
-    width: 100px;
-    height: 100px;
-    font-size: 25px;
-    line-height: 100px;
-    border-radius: 500px;
-    background: #faf9ff;
-    transition: 0.3s ease;
-    display: inline-block;
-    border: 1px solid #eee;
+/* Feature icon: a tinted disc inside a pale ring. On hover the disc fills with
+   the primary green, lifts, and a ring ripples out once from its edge. */
+.hero-icon {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 88px;
+    height: 88px;
+    margin: 12px;
+    border-radius: 50%;
+    color: var(--icon-ink);
+    background: var(--icon-tint);
+    box-shadow: 0 0 0 12px var(--icon-ring);
+    transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1),
+                box-shadow 0.4s ease, color 0.3s ease, background-color 0.3s ease;
 }
 
-.hero-box:hover i.fa,
-.hero-box:hover span.lnr {
+/* The icon is a link to the card's screenshot (opened in the lightbox). */
+a.hero-icon,
+a.hero-icon:hover,
+a.hero-icon:focus {
+    text-decoration: none;
+    cursor: pointer;
+}
+
+a.hero-icon:focus {
+    outline: none;
+}
+
+a.hero-icon:focus-visible {
+    outline: 3px solid rgba(var(--primary-color-rgb), 0.5);
+    outline-offset: 16px;
+}
+
+/* The fill lives on a layer so it fades in over the tint. */
+.hero-icon::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: var(--primary-color);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.hero-icon::after {
+    content: "";
+    position: absolute;
+    inset: -12px;
+    border-radius: inherit;
+    border: 2px solid rgba(var(--primary-color-rgb), 0.45);
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* Icons taken from the app (route planner, GPX, OKT trail marker) are inline
+   SVGs sized to match the 40px Material icons; they share their hover pop. */
+.hero-icon .hero-icon-svg {
+    position: relative;
+    width: 30px;
+    height: 30px;
+    padding: 0; /* the theme pads every svg by 5px */
+    transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* The app artwork is padded inside its viewBoxes, so each is drawn larger to
+   read at the same size as the Material glyphs next to it. */
+.hero-icon .hero-icon-svg--route {
+    width: 42px;
+    height: 42px;
+}
+.hero-icon .hero-icon-svg--gpx {
+    width: 38px;
+    height: 38px;
+}
+.hero-icon .hero-icon-svg--trail {
+    width: 34px;
+    height: 34px;
+}
+
+.hero-box:hover .hero-icon .hero-icon-svg {
+    transform: scale(1.12);
+}
+
+.hero-icon .material-symbols-rounded {
+    position: relative;
+    font-size: 40px;
+    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 40;
+    transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1),
+                font-variation-settings 0.3s ease;
+}
+
+.hero-box:hover .hero-icon {
     color: #fff;
-    background: rgb(var(--primary-color-rgb));
-    box-shadow: 0px 20px 50px 0px rgba(46, 125, 50, 0.4);
+    transform: translateY(-6px);
+    box-shadow: 0 0 0 12px rgba(var(--primary-color-rgb), 0.12),
+                0 22px 40px -10px rgba(var(--primary-color-rgb), 0.5);
 }
 
-.hero-box p {
-    margin-top: 25px;
-    margin-bottom: 0px;
+.hero-box:hover .hero-icon::before {
+    opacity: 1;
+}
+
+.hero-box:hover .hero-icon::after {
+    animation: hero-ripple 0.9s ease-out;
+}
+
+.hero-box:hover .hero-icon .material-symbols-rounded {
+    transform: scale(1.12);
+    font-variation-settings: 'FILL' 1, 'wght' 500, 'GRAD' 0, 'opsz' 40;
+}
+
+@keyframes hero-ripple {
+    0%   { opacity: 0.9; transform: scale(0.85); }
+    100% { opacity: 0;   transform: scale(1.35); }
 }
 
 .hero-box h3 {
     font-family: 'Montserrat', sans-serif;
     font-weight: 700;
+    color: var(--hero-heading-color);
+    margin-top: 28px;
+    transition: color 0.3s ease;
 }
 
-/*----------------------------------------*/
-/*     FAQ Area Css
-/*----------------------------------------*/
-
-.faq-area {
-    background-color:#f9f9ff;
+.hero-box:hover h3 {
+    color: var(--primary-color);
 }
 
-.faq {
-    padding-left: 30px;
-    padding-right: 30px;
-    padding-top: 12px;
-    padding-bottom: 12px;
-    margin-bottom: 25px;
-    background: white;
-    border-radius: 40px;
-    border: 1px solid #DEDEDE;
+.hero-box p {
+    margin-top: 20px;
+    margin-bottom: 0px;
+    color: #5A615B;
 }
 
-.faq h3 {
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 700;
-}
-
-.faq span.fa {
-    width: 100px;
-    height: 100px;
-    font-size: 25px;
-    line-height: 100px;
-    border-radius: 100px;
-    background: #faf9ff;
-    transition: 0.3s ease;
-    display: inline-block;
-    border: 1px solid #eee;
+@media (prefers-reduced-motion: reduce) {
+    .hero-icon,
+    .hero-icon .material-symbols-rounded,
+    .hero-icon .hero-icon-svg,
+    .screen img {
+        transition: none;
+    }
+    .hero-box:hover .hero-icon,
+    .hero-box:hover .hero-icon .material-symbols-rounded,
+    .hero-box:hover .hero-icon .hero-icon-svg,
+    .hero-box:hover .screen img {
+        transform: none;
+    }
+    .hero-box:hover .hero-icon::after {
+        animation: none;
+    }
 }
 
 
@@ -1203,133 +1370,345 @@ html[lang="en"] .store-badges {
     max-width: 250px;
 }
 
+/* The screenshots are framed phones on a transparent canvas, so the shadow is
+   a drop-shadow that follows the frame's outline (side buttons included)
+   rather than a box-shadow, which would trace the image's rectangle. */
 .screen img {
-    border-radius: 42px;
-    border: 1px solid #DEDEDE;
+    filter: drop-shadow(0 0 0 rgba(var(--primary-color-rgb), 0));
+    transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1),
+                filter 0.4s ease;
 }
 
-.screen img:hover {
-    border: 1px solid transparent;
-    box-shadow: 0px 10px 20px 0px rgba(46, 125, 50, 0.4);
+/* Lifts with the icon above it: the whole feature card is the hover target. */
+.hero-box:hover .screen img {
+    transform: translateY(-8px);
+    filter: drop-shadow(0 22px 22px rgba(var(--primary-color-rgb), 0.3))
+            drop-shadow(0 0 3px rgba(var(--primary-color-rgb), 0.35));
 }
 
 
 /* ----------------------------------------------------------------------------------------
+*                                   12. Contact area css
+* --------------------------------------------------------------------------------------- */
+.contact-area {
+    background: #F3F5F0;
+    padding: 110px 0 120px;
+}
+
+.contact-head {
+    max-width: 640px;
+    margin: 0 auto 56px;
+    text-align: center;
+}
+
+.contact-head h2 {
+    margin: 0 0 22px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 44px;
+    font-weight: 700;
+    color: var(--hero-heading-color);
+}
+
+.contact-head p {
+    margin: 0;
+    font-size: 17px;
+    line-height: 1.75;
+    color: #5A615B;
+}
+
+/* Each card is one link. Hover borrows the feature cards' language: the card
+   lifts on a soft green shadow and its icon disc fills with the primary green. */
+.contact-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 24px;
+    padding: 38px 20px 34px;
+    border-radius: 24px;
+    border: 1px solid #E4E9E1;
+    background: #fff;
+    text-align: center;
+    text-decoration: none;
+    transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1),
+                box-shadow 0.4s ease, border-color 0.3s ease;
+}
+
+.contact-card:hover,
+.contact-card:focus {
+    text-decoration: none;
+}
+
+.contact-card:hover,
+.contact-card:focus-visible {
+    transform: translateY(-8px);
+    border-color: rgba(var(--primary-color-rgb), 0.18);
+    box-shadow: 0 26px 44px -18px rgba(var(--primary-color-rgb), 0.38),
+                0 0 0 1px rgba(var(--primary-color-rgb), 0.06);
+}
+
+.contact-card:focus {
+    outline: none;
+}
+
+.contact-icon {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 64px;
+    height: 64px;
+    margin: 8px 8px 26px;
+    border-radius: 50%;
+    color: var(--icon-ink);
+    background: var(--icon-tint);
+    box-shadow: 0 0 0 8px var(--icon-ring);
+    transition: color 0.3s ease, box-shadow 0.4s ease;
+}
+
+.contact-icon::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: var(--primary-color);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.contact-icon-svg {
+    position: relative;
+    padding: 0; /* the theme pads every svg by 5px */
+    width: 26px;
+    height: 26px;
+    transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.contact-card:hover .contact-icon,
+.contact-card:focus-visible .contact-icon {
+    color: #fff;
+    box-shadow: 0 0 0 8px rgba(var(--primary-color-rgb), 0.12);
+}
+
+.contact-card:hover .contact-icon::before,
+.contact-card:focus-visible .contact-icon::before {
+    opacity: 1;
+}
+
+.contact-card:hover .contact-icon-svg,
+.contact-card:focus-visible .contact-icon-svg {
+    transform: scale(1.12);
+}
+
+.contact-label {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: #5A615B;
+}
+
+.contact-value {
+    margin-top: 6px;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--hero-heading-color);
+    word-break: break-word;
+    transition: color 0.3s ease;
+}
+
+.contact-card:hover .contact-value,
+.contact-card:focus-visible .contact-value {
+    color: var(--primary-color);
+}
+
+@media (max-width: 991px) {
+    .contact-card {
+        padding: 30px 12px 28px;
+    }
+    .contact-value {
+        font-size: 15px;
+    }
+}
+
+@media (max-width: 767px) {
+    .contact-area {
+        padding: 70px 0 60px;
+    }
+    .contact-head {
+        margin-bottom: 36px;
+    }
+    .contact-head h2 {
+        font-size: 34px;
+    }
+    .contact-head p {
+        font-size: 15px;
+    }
+    /* Same card, tighter: capped and centred so the cards read as buttons
+       rather than full-width panels. */
+    .contact-card {
+        max-width: 300px;
+        margin: 0 auto 16px;
+        padding: 22px 20px 20px;
+    }
+    .contact-icon {
+        margin-bottom: 16px;
+    }
+    .contact-value {
+        font-size: 17px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .contact-card,
+    .contact-icon-svg {
+        transition: none;
+    }
+    .contact-card:hover,
+    .contact-card:focus-visible,
+    .contact-card:hover .contact-icon-svg,
+    .contact-card:focus-visible .contact-icon-svg {
+        transform: none;
+    }
+}
+
+/* ----------------------------------------------------------------------------------------
 *                                   13. Footer area css
 * --------------------------------------------------------------------------------------- */
-.footer-widget-area {
-    background: #f9f9ff;
-    position: relative;
-    overflow: hidden;
-    clear: both;
+.site-footer {
+    background: var(--chrome-color);
+    color: rgba(255, 255, 255, 0.82);
+    padding: 72px 0 0;
 }
 
-.footer-widget-area:after {
-    position: absolute;
-    content: "";
-    width: 82%;
-    height: 1px;
-    background: #eee;
-    left: 8%;
-    bottom: 0;
+.footer-main {
+    padding-bottom: 40px;
 }
 
-.footer-widget p {
-    padding-right: 22px;
+.footer-brand {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 32px;
 }
 
-.footer-bottom-area {
-    color: #777;
-    background: #f9f9ff;
-    padding: 30px 0px;
+/* The app icon, outlined in white so its green doesn't melt into the bar. */
+.footer-brand-icon {
+    flex: none;
+    width: 64px;
+    height: 64px;
+    border-radius: 15px;
+    border: 2px solid #fff;
 }
 
-.footer-bottom-area p {
-    margin: 0px;
+.footer-brand-text {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
 }
 
-.footer-bottom-area a {
-    text-decoration: underline;
-    color: #a506f8;
+.footer-brand-name {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 30px;
+    font-weight: 700;
+    color: #fff;
+    line-height: 1;
 }
 
-footer a {
-    color: #777;
+.footer-tagline {
+    font-size: 15px;
+    line-height: 1.3;
 }
 
-footer a:hover {
-    color: #000;
+.footer-heading {
+    margin: 4px 0 20px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: #9DCF91;
 }
 
-
-.footer-widget h2,
-.footer-widget h3 {
-    color: #000;
-    margin-bottom: 30px;
-}
-
-.footer-widget i.fa,
-.footer-widget span.lnr {
-    color: #777;
-    margin-top: -4px;
-}
-
-.footer-widget ul {
-    margin: 0;
+.footer-links {
+    margin: 0 0 32px;
     padding: 0;
     list-style: none;
 }
 
-.footer-widget ul li {
-    margin-bottom: 7px;
+.footer-links li + li {
+    margin-top: 12px;
 }
 
-@media (max-width: 1199px) {
-    .footer-widget p {
-        padding-right: 0;
-    }
+.footer-links a {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 15px;
+    color: rgba(255, 255, 255, 0.88);
+    text-decoration: none;
+    transition: color 0.2s ease;
 }
 
-/* Contact page CSS */
-
-.contact {
-    padding-top: 130px;
-    padding-bottom: 80px;
-
-}
-
-.contact-box {
-    text-align: center;
-    margin-top: 15px;
-}
-
-.contact-box span{
-    background: #faf9ff;
-    border: 1px solid #eee;
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    font-size: 20px;
-    padding-top: 40px;
-    margin-bottom: 30px;
-}
-
-.contact-box p {
-    margin-bottom: 0;
-}
-
-.contact-box a {
-    color: #777;
-}
-
- .contact-box span:hover {
+.footer-links a:hover,
+.footer-links a:focus {
     color: #fff;
-    box-shadow: 0px 20px 50px 0px rgba(46, 125, 50, 0.2);
-    background: rgb(var(--primary-color-rgb));
+    text-decoration: none;
 }
 
-.contact-form-area {
-    padding-bottom: 0px;
+.footer-icon {
+    flex: none;
+    padding: 0; /* the theme pads every svg by 5px */
+    width: 17px;
+    height: 17px;
+    color: rgba(255, 255, 255, 0.6);
+    transition: color 0.2s ease, transform 0.3s ease;
+}
+
+.footer-links a:hover .footer-icon {
+    color: #9DCF91;
+    transform: translateX(2px);
+}
+
+.footer-links a:hover span {
+    text-decoration: underline;
+    text-decoration-color: rgba(157, 207, 145, 0.6);
+    text-underline-offset: 4px;
+}
+
+.footer-bottom {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 8px 24px;
+    padding: 26px 0 30px;
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.62);
+}
+
+.footer-bottom p {
+    margin: 0;
+}
+
+.footer-bottom a {
+    color: rgba(255, 255, 255, 0.78);
+    text-decoration: none;
+}
+
+.footer-bottom a:hover,
+.footer-bottom a:focus {
+    color: #fff;
+    text-decoration: underline;
+}
+
+@media (max-width: 767px) {
+    .site-footer {
+        padding-top: 56px;
+    }
+    .footer-bottom {
+        flex-direction: column;
+        align-items: flex-start;
+    }
 }
 
 .privacy-hero {
@@ -1494,8 +1873,8 @@ polyline {
     top: 0;
     right: 0;
     bottom: 0;
-    /* Use the same gradient as the original sticky-menu */
-    background: rgb(var(--primary-color-rgb));
+    /* Same deep green as the footer */
+    background: var(--chrome-color);
     opacity: 0;
     transition: opacity 0.2s ease-in-out;
     pointer-events: none; /* don’t block clicks */
@@ -1510,3 +1889,10 @@ polyline {
 
 /* Prevent double backgrounds when sticky (overlay handles it) */
 .menu-area.sticky-menu { background: transparent !important; }
+
+/* Lightbox: the screenshots are framed phones with transparent corners, so
+   Magnific Popup's dark box behind the image would show around the frame. */
+.mfp-figure:after {
+    background: transparent;
+    box-shadow: none;
+}

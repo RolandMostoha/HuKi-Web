@@ -53,9 +53,8 @@
                                     <ul class="nav navbar-nav navbar-right">
                                         <li><a href="../#slider">FŐOLDAL</a></li>
                                         <li><a href="../#features">FUNKCIÓK</a></li>
-                                        <li><a href="../#faq">GYIK</a></li>
                                         <li><a href="../#contact">KAPCSOLAT</a></li>
-                                        <li class="lang-switcher"><a href="../en/privacy-policy/">🇬🇧 EN</a></li>
+                                        <li class="lang-switcher"><a class="lang-toggle" href="../en/privacy-policy/" hreflang="en" aria-label="Switch to English"><span class="lang-option is-active">HU</span><span class="lang-option">EN</span></a></li>
                                     </ul>
                                 </nav>
                             </div>
@@ -329,51 +328,31 @@
             </div>
         </section>
     </main>
-
-    <footer>
-        <div class="footer-widget-area section-big">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="footer-widget">
-                            <h3>Fejlesztő</h3>
-                            <div class="address">
-                                <div class="address-box clearfix">
-                                    <p><a href="https://www.linkedin.com/in/roland-mostoha-0485ba3b/"><span class="lnr lnr-user"></span> <span>Mostoha Roland</span></a></p>
-                                </div>
-                                <div class="address-box clearfix">
-                                    <p><a href="mailto:huki.app@gmail.com"><span class="lnr lnr-envelope"></span> <span>huki.app@gmail.com</span></a></p>
-                                </div>
-                                <div class="address-box clearfix">
-                                    <p><a href="https://www.linkedin.com/in/roland-mostoha-0485ba3b/"><span class="lnr lnr-link"></span> <span>LinkedIn - Mostoha Roland</span></a></p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-6">
-                        <div class="footer-widget">
-                            <h3>Adatvédelem</h3>
-                            <div class="address">
-                                <div class="address-box clearfix">
-                                    <p><a href="./"><span class="lnr lnr-lock"></span> <span>Adatkezelési tájékoztató</span></a></p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+    <!-- Footer area starts -->
+    <footer class="site-footer">
+        <div class="container">
+            <div class="row footer-main">
+                <div class="col-md-5">
+                    <div class="footer-brand"><img class="footer-brand-icon" src="../assets/img/huki_logo_icon_footer.svg" width="64" height="64" alt=""><div class="footer-brand-text"><span class="footer-brand-name">HuKi</span><span class="footer-tagline">Magyar Túratérkép</span></div></div>
+                </div>
+                <div class="col-sm-6 col-md-4">
+                    <h3 class="footer-heading">Fejlesztő</h3>
+                    <ul class="footer-links">
+                        <li><a href="https://www.linkedin.com/in/roland-mostoha-0485ba3b/"><svg class="footer-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span>Mostoha Roland</span></a></li>
+                        <li><a href="mailto:huki.app@gmail.com"><svg class="footer-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg><span>huki.app@gmail.com</span></a></li>
+                        <li><a href="https://www.linkedin.com/in/roland-mostoha-0485ba3b/"><svg class="footer-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg><span>LinkedIn</span></a></li>
+                    </ul>
+                </div>
+                <div class="col-sm-6 col-md-3">
+                    <h3 class="footer-heading">Adatvédelem</h3>
+                    <ul class="footer-links">
+                        <li><a href="./"><svg class="footer-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg><span>Adatkezelési tájékoztató</span></a></li>
+                    </ul>
                 </div>
             </div>
-        </div>
-
-        <div class="clearfix"></div>
-
-        <div class="footer-bottom-area">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-12 text-center">
-                        <p>Copyright &copy; 2026. Minden jog fenntartva</p>
-                    </div>
-                </div>
+            <div class="footer-bottom">
+                <p>© 2026 HuKi. Minden jog fenntartva.</p>
+                <p>Térképadatok © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> közreműködők</p>
             </div>
         </div>
     </footer>

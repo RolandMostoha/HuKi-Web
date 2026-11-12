@@ -93,8 +93,7 @@
     }
     .navbar-fixed-bottom .navbar-collapse,
     .navbar-fixed-top .navbar-collapse {
-        background: #fff;
-        background: var(--primary-color);
+        background: var(--chrome-color);
         margin-top: 10px;
         /* No vertical padding here on purpose — the panel's inner spacing lives
            on .navbar-nav below. Bootstrap's collapse animates the height via
@@ -122,6 +121,18 @@
     .mainmenu .navbar-nav li a {
         padding: 15px 15px;
         color: #fff;
+    }
+    /* The menu panel is green here, so the toggle takes its inverted colours
+       and lines up with the links' 15px inset. */
+    .mainmenu .navbar-nav > li.lang-switcher > a.lang-toggle {
+        --toggle-ink: #fff;
+        --toggle-on-text: var(--icon-ink);
+        margin: 8px 15px;
+        border-color: rgba(255, 255, 255, 0.28);
+        background: rgba(255, 255, 255, 0.08);
+    }
+    .mainmenu .lang-toggle:hover .lang-option:not(.is-active) {
+        background: rgba(255, 255, 255, 0.16);
     }
     .navbar-fixed-bottom .navbar-collapse,
     .navbar-fixed-top .navbar-collapse {

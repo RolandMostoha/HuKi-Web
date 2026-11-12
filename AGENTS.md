@@ -4,7 +4,7 @@
 
 HuKi-Web is the promotional/showcase static website for **HuKi**, an Android and iOS hiking app for Hungary ([huki.hu](https://huki.hu/)). 
 
-It exists for promotion, Google Search App Indexing, deeplinking, and hosting the FAQ / About / Privacy Policy. 
+It exists for promotion, Google Search App Indexing, deeplinking, and hosting the About / Privacy Policy. 
 
 There is no build system, framework, or package manager — plain HTML, CSS, and vanilla JS (jQuery-based) served as static files. 
 
@@ -62,7 +62,7 @@ commit-message convention.
 Hungarian (`hu`) is the default/source language; English lives under `/en/`. **Every page is a fully hardcoded, standalone HTML file in its own language** — there is no translation layer, no JSON string table, and no client-side rendering. The URL is the language selector.
 
 - **`index.html`** — Hungarian landing page.
-- **`en/index.html`** — English landing page: a full copy with English copy, canonical `https://huki.hu/en/`, and a `🇭🇺 HU` switcher. CSS/JS/images use `../`; favicons and the manifest stay root-absolute (`/…`), matching the root page.
+- **`en/index.html`** — English landing page: a full copy with English copy, canonical `https://huki.hu/en/`, and the HU | EN language toggle (EN active). CSS/JS/images use `../`; favicons and the manifest stay root-absolute (`/…`), matching the root page.
 - The Privacy Policy pages (`privacy-policy/` and `en/privacy-policy/`) follow the same convention.
 
 Consequences when editing:
@@ -81,6 +81,6 @@ Three details are load-bearing:
 
 ## Layout conventions
 
-- All of `assets/js/` is vendored / theme code (`jquery.min.js`, `plugin.js`, `main_script.js` — the last is third-party "Pushpo" template JS). There is no project-authored JS file; the only project JS is the inline language-preference snippet in each page's `<head>`.
+- All of `assets/js/` is vendored / theme code (`jquery.min.js`, `plugin.js`, `main_script.js` — the last is third-party "Pushpo" template JS). There is no project-authored JS file; the only project JS is inline in the two landing pages: the language-preference snippet in the `<head>`, and a small handler after `main_script.js` that makes each feature icon open its card's screenshot in the lightbox.
 - SEO/deeplink files live at the repo root or well-known locations: `sitemap.xml`, `robots.txt`, `site.webmanifest`, `.well-known/assetlinks.json` (Android App Links / deeplink verification). Keep these consistent with any URL/domain changes.
 - Canonical domain is `https://huki.hu` (non-www); `hreflang` alternates point `hu` → `/` and `en` → `/en/`.

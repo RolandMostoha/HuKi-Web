@@ -4,8 +4,6 @@ HuKi is an Android and iOS app for hikers, which helps you plan trips and discov
 
 The web-app is available under: [huki.hu](https://huki.hu/)
 
-The Android repository: [RolandMostoha/HuKi-Android](https://github.com/RolandMostoha/HuKi-Android)
-
 The KMP (Android+iOS) repository: [RolandMostoha/HuKi-KMP](https://github.com/RolandMostoha/HuKi-KMP)
 
 ## Goals
@@ -14,7 +12,7 @@ A showcase website is created for:
 - Promotional purposes
 - Google Search App Indexing
 - Deeplinking
-- FAQ, About, Privacy Policy etc. 
+- About, Privacy Policy etc. 
 
 ## Tech stack & architecture & coding constraints
 
